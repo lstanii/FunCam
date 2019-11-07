@@ -1,4 +1,5 @@
-MIT License
+/**
+ MIT License
 
 Copyright (c) 2019 Snap Inc.
 
@@ -19,3 +20,40 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+
+#import "FCCameraViewController.h"
+
+#import "FCCamera.h"
+#import "FCMetalProcessor.h"
+#import "FCMetalProcessingShader.h"
+
+@implementation FCCameraViewController {
+    FCCamera *_camera;
+    FCMetalProcessor *_metalProcessor;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+- (void)setCameraAPI:(FCCamera *)camera
+{
+    _camera = camera;
+}
+
+- (void)setMetalProcessor:(FCMetalProcessor *)metalProcessor {
+    _metalProcessor = metalProcessor;
+}
+
+- (void)setAvailableMetalProcessingShaders:(NSArray <FCMetalProcessingShader *> *)availableShaders {
+    [_metalProcessor setShader:availableShaders];
+}
+
+- (IBAction)captureImage:(id)sender {
+   // TODO: Implement
+}
+
+@end

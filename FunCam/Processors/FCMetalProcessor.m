@@ -1,4 +1,5 @@
-MIT License
+/**
+ MIT License
 
 Copyright (c) 2019 Snap Inc.
 
@@ -19,3 +20,33 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+
+#import "FCMetalProcessor.h"
+
+#import "FCMetalProcessingShader.h"
+
+@implementation FCMetalProcessor {
+    NSArray<FCMetalProcessingShader *> *_shaders;
+}
+
+- (void)setShader:(NSArray<FCMetalProcessingShader *> *)shaders
+{
+    _shaders = shaders;
+}
+
+- (NSArray<FCMetalProcessingShader *> *)shaders
+{
+    return _shaders;
+}
+
+- (CMSampleBufferRef)processSampleBuffer:(CMSampleBufferRef)sampleBuffer
+{
+    CMSampleBufferRef currentSampleBuffer = sampleBuffer;
+    for (FCMetalProcessingShader *shader in [_shaders copy]) {
+        currentSampleBuffer = [shader processSampleBuffer:currentSampleBuffer];
+    }
+    return currentSampleBuffer;
+}
+
+@end
