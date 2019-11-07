@@ -22,13 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import "FCMetalProcessingShader.h"
+#import <Foundation/Foundation.h>
 
-@implementation FCMetalProcessingShader
+@class CIImage;
 
-- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion
-{
-    NSAssert(NO, @"Should be implemented by subclass");
-}
+NS_ASSUME_NONNULL_BEGIN
+
+@interface FCImageProcessorFilter : NSObject
+
+- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

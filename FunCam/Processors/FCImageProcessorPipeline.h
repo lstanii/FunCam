@@ -26,11 +26,17 @@ SOFTWARE.
 
 #import <CoreMedia/CoreMedia.h>
 
+@class FCImageProcessorFilter;
+@class CIImage;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FCMetalProcessingShader : NSObject
+@interface FCImageProcessorPipeline : NSObject
 
-- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion;
+- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *))completion;
+
+- (void)setFilters:(NSArray<FCImageProcessorFilter *> *)filters;
+- (NSArray<FCImageProcessorFilter *> *)filters;
 
 @end
 

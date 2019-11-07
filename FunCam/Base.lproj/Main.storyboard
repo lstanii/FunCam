@@ -23,9 +23,18 @@
                                     <action selector="toggleCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GlN-Ao-4II"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uFB-Xk-udq">
+                                <rect key="frame" x="144" y="735" width="126" height="30"/>
+                                <state key="normal" title="Turn Test Filter On"/>
+                                <connections>
+                                    <action selector="testFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LYf-mb-seD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="uFB-Xk-udq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RBj-3D-alw"/>
+                            <constraint firstItem="Pz0-sy-Dkg" firstAttribute="top" secondItem="uFB-Xk-udq" secondAttribute="bottom" constant="37" id="nUy-Z3-r4g"/>
                             <constraint firstItem="Pz0-sy-Dkg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="r3z-qg-D3W"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Pz0-sy-Dkg" secondAttribute="bottom" constant="30" id="y6h-PZ-Lbz"/>
                         </constraints>

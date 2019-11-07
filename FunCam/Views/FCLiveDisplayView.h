@@ -28,9 +28,14 @@ SOFTWARE.
 
 #import "FCSampleBufferObserver.h"
 
+@class FCCamera;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FCLiveDisplayView : UIView <FCSampleBufferObserver>
+
+@property (nonatomic, weak) FCCamera *camera;
+
 @end
 
 NS_ASSUME_NONNULL_END

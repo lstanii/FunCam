@@ -28,8 +28,8 @@ SOFTWARE.
 
 #import "FCCameraSession.h"
 #import "FCLiveDisplayView.h"
-#import "FCMetalProcessor.h"
 #import "FCSampleBufferObserver.h"
+#import "FCImageProcessorPipeline.h"
 
 @interface FCCamera () <AVCaptureVideoDataOutputSampleBufferDelegate>
 @end
@@ -37,7 +37,6 @@ SOFTWARE.
 @implementation FCCamera {
     FCCameraSession *_cameraSession;
     FCLiveDisplayView *_liveDisplayView;
-    FCMetalProcessor *_metalProcessor;
     NSMutableSet<id<FCSampleBufferObserver>> *_sampleBufferObservers;
     NSLock *_observerLock;
     dispatch_queue_t _backgroundQueue;
@@ -49,11 +48,21 @@ SOFTWARE.
     if (self) {
         _cameraSession = [FCCameraSession new];
         _liveDisplayView = [FCLiveDisplayView new];
+        _liveDisplayView.camera = self;
         _observerLock = [NSLock new];
         _sampleBufferObservers = [NSMutableSet new];
         dispatch_queue_attr_t attr =
             dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
         _backgroundQueue = dispatch_queue_create("com.fun.camera.camera.queue", attr);
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(stopCamera)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(startCamera)
+                                                     name:UIApplicationDidBecomeActiveNotification
+                                                   object:nil];
+        _imageProcessorPipeline = [FCImageProcessorPipeline new];
     }
     return self;
 }
@@ -65,14 +74,14 @@ SOFTWARE.
     // TODO: Implement
 }
 
+- (AVCaptureDevicePosition)currentDevicePosition
+{
+    return _cameraSession.currentDevicePosition;
+}
+
 - (FCLiveDisplayView *)liveDisplay
 {
     return _liveDisplayView;
-}
-
-- (void)setMetalProcessor:(FCMetalProcessor *)metalProcessor
-{
-    _metalProcessor = metalProcessor;
 }
 
 - (void)setupCamera
@@ -108,7 +117,8 @@ SOFTWARE.
     });
 }
 
-- (void)toggleFlash:(dispatch_block_t)completion {
+- (void)toggleFlash:(dispatch_block_t)completion
+{
     // TODO: Implement
 }
 
@@ -137,17 +147,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [_observerLock lock];
     NSSet<id<FCSampleBufferObserver>> *sampleBufferObservers = [_sampleBufferObservers copy];
     [_observerLock unlock];
-    if (!_metalProcessor) {
-        for (id<FCSampleBufferObserver> observer in sampleBufferObservers) {
-            [observer enqueueSampleBuffer:sampleBuffer];
-        }
-    } else {
-        [_metalProcessor processSampleBuffer:sampleBuffer
-                                  completion:^(CMSampleBufferRef _Nonnull sampleBuffer) {
-                                      for (id<FCSampleBufferObserver> observer in sampleBufferObservers) {
-                                          [observer enqueueSampleBuffer:sampleBuffer];
-                                      }
-                                  }];
+    for (id<FCSampleBufferObserver> observer in sampleBufferObservers) {
+        [observer enqueueSampleBuffer:sampleBuffer];
     }
 }
 

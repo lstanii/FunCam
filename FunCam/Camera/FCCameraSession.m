@@ -104,6 +104,7 @@
 - (void)_configureVideoOutput
 {
     _videoDataOutput = [AVCaptureVideoDataOutput new];
+    _videoDataOutput.alwaysDiscardsLateVideoFrames = YES;
     NSAssert([_captureSession canAddOutput:_videoDataOutput], @"Cannot add input");
     [_captureSession addOutput:_videoDataOutput];
 }
@@ -122,10 +123,6 @@
     NSAssert([_captureSession canAddInput:_captureDeviceInput], @"Cannot add input");
     [_captureSession addInput:_captureDeviceInput];
     _devicePosition = devicePosition;
-    
-    [_videoDataOutput connectionWithMediaType:AVMediaTypeVideo];
-     AVCaptureConnection *connection = [_videoDataOutput connectionWithMediaType:AVMediaTypeVideo];
-    [connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
 }
 
 @end

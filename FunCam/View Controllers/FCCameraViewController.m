@@ -25,13 +25,12 @@ SOFTWARE.
 #import "FCCameraViewController.h"
 
 #import "FCCamera.h"
-#import "FCMetalProcessor.h"
-#import "FCMetalProcessingShader.h"
 #import "FCLiveDisplayView.h"
+#import "FCTestImageProcessorFilter.h"
+#import "FCImageProcessorPipeline.h"
 
 @implementation FCCameraViewController {
     FCCamera *_camera;
-    FCMetalProcessor *_metalProcessor;
 }
 
 - (void)viewDidLoad
@@ -43,8 +42,6 @@ SOFTWARE.
     [self.view insertSubview:preview atIndex:0];
     preview.frame = self.view.bounds;
     preview.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    FCMetalProcessor *processor = [FCMetalProcessor new];
-    [camera setMetalProcessor:processor];
     [camera setupCamera];
     [camera addSampleBufferObserver:camera.liveDisplay];
     [camera startCamera];
@@ -53,6 +50,18 @@ SOFTWARE.
 - (void)setCameraAPI:(FCCamera *)camera
 {
     _camera = camera;
+}
+
+- (IBAction)testFilter:(UIButton *)sender {
+    if (sender.tag == 0) {
+        sender.tag = 1;
+        [sender setTitle:@"Turn Test Filter Off" forState:UIControlStateNormal];
+        [_camera.imageProcessorPipeline setFilters:@[[FCTestImageProcessorFilter new]]];
+    } else {
+        sender.tag = 0;
+        [sender setTitle:@"Turn Test Filter On" forState:UIControlStateNormal];
+        [_camera.imageProcessorPipeline setFilters:@[]];
+    }
 }
 
 - (IBAction)toggleCamera:(UIButton *)sender

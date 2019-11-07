@@ -22,23 +22,44 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import <Foundation/Foundation.h>
+#import "FCImageProcessorPipeline.h"
 
-#import <CoreMedia/CoreMedia.h>
+#import "FCImageProcessorFilter.h"
 
-@class FCMetalProcessingShader;
+@import CoreImage;
 
-id<MTLDevice> metalDevice();
+@implementation FCImageProcessorPipeline {
+    NSArray<FCImageProcessorFilter *> *_filters;
+}
 
-NS_ASSUME_NONNULL_BEGIN
+- (void)setFilters:(NSArray<FCImageProcessorFilter *> *)filters
+{
+    _filters = filters;
+}
 
-@interface FCMetalProcessor : NSObject
+- (NSArray<FCImageProcessorFilter *> *)filters
+{
+    return _filters;
+}
 
-- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion;
+- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *))completion
+{
+    [self _processImage:image forFilters:_filters atIndex:0 completion:completion];
+}
 
-- (void)setShaders:(NSArray<FCMetalProcessingShader *> *)shaders;
-- (NSArray<FCMetalProcessingShader *> *)shaders;
+- (void)_processImage:(CIImage *)image
+           forFilters:(NSArray<FCImageProcessorFilter *> *)filters
+              atIndex:(NSInteger)index
+           completion:(void (^)(CIImage *))completion
+{
+    if (index >= filters.count) {
+        completion(image);
+        return;
+    }
+    [filters[index] processImage:image
+                      completion:^(CIImage *image) {
+                          [self _processImage:image forFilters:filters atIndex:index + 1 completion:completion];
+                      }];
+}
 
 @end
-
-NS_ASSUME_NONNULL_END

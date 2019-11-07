@@ -22,38 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import <UIKit/UIKit.h>
+#import "FCImageProcessorFilter.h"
 
-#import <AVKit/AVKit.h>
+@import CoreImage;
 
-@protocol FCSampleBufferObserver;
-@class FCLiveDisplayView;
-@class FCImageProcessorPipeline;
+@implementation FCImageProcessorFilter
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface FCCamera : NSObject
-
-#pragma mark - Public Properties
-
-@property (nonatomic, nonnull, readonly) FCLiveDisplayView *liveDisplay;
-@property (nonatomic, nonnull, readonly) FCImageProcessorPipeline *imageProcessorPipeline;
-
-#pragma mark - Public Methods
-
-- (void)captureImage:(void(^)(UIImage *image))image;
-- (AVCaptureDevicePosition)currentDevicePosition;
-- (void)setupCamera;
-- (void)startCamera;
-- (void)stopCamera;
-- (void)toggleFlash:(dispatch_block_t)completion;
-- (void)toggleCamera:(dispatch_block_t)completion;
-
-#pragma mark - Sample Buffer Observing
-
-- (void)addSampleBufferObserver:(id<FCSampleBufferObserver>)observer;
-- (void)removeSampleBufferObserver:(id<FCSampleBufferObserver>)observer;
+- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *))completion
+{
+    NSAssert(NO, @"Should be implemented by subclass");
+}
 
 @end
-
-NS_ASSUME_NONNULL_END
