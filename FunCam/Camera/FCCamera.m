@@ -108,6 +108,10 @@ SOFTWARE.
     });
 }
 
+- (void)toggleFlash:(dispatch_block_t)completion {
+    // TODO: Implement
+}
+
 #pragma mark - Sample Buffer Observing
 
 - (void)addSampleBufferObserver:(id<FCSampleBufferObserver>)observer
