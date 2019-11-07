@@ -26,9 +26,9 @@ SOFTWARE.
 
 @implementation FCMetalProcessingShader
 
-- (CMSampleBufferRef)processSampleBuffer:(CMSampleBufferRef)sampleBuffer {
-    // TODO: Implement
-    return sampleBuffer;
+- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion
+{
+    NSAssert(NO, @"Should be implemented by subclass");
 }
 
 @end

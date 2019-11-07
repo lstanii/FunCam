@@ -22,16 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import <Foundation/Foundation.h>
-
-#import <CoreMedia/CoreMedia.h>
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface FCMetalProcessingShader : NSObject
-
-- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion;
-
-@end
-
-NS_ASSUME_NONNULL_END
+static inline CVMetalTextureRef FCMetalTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer, size_t planeIndex,
+                                                              MTLPixelFormat pixelFormat,
+                                                              CVMetalTextureCacheRef textureCache)
+{
+    size_t width = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex);
+    size_t height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex);
+    CVMetalTextureRef textureRef;
+    if (kCVReturnSuccess != CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer,
+                                                                      nil, pixelFormat, width, height, planeIndex,
+                                                                      &textureRef)) {
+        return nil;
+    }
+    return textureRef;
+}

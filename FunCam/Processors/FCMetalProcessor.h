@@ -28,14 +28,16 @@ SOFTWARE.
 
 @class FCMetalProcessingShader;
 
+id<MTLDevice> metalDevice();
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FCMetalProcessor : NSObject
 
-- (CMSampleBufferRef)processSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion;
 
-- (void)setShader:(NSArray <FCMetalProcessingShader *> *)shaders;
-- (NSArray <FCMetalProcessingShader *> *)shaders;
+- (void)setShaders:(NSArray<FCMetalProcessingShader *> *)shaders;
+- (NSArray<FCMetalProcessingShader *> *)shaders;
 
 @end
 

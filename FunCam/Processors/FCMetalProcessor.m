@@ -26,11 +26,22 @@ SOFTWARE.
 
 #import "FCMetalProcessingShader.h"
 
+@import Metal;
+
+id<MTLDevice> metalDevice() {
+    static dispatch_once_t onceToken;
+    static id<MTLDevice> metalDevice;
+    dispatch_once(&onceToken, ^{
+       metalDevice = MTLCreateSystemDefaultDevice();
+    });
+    return metalDevice;
+}
+
 @implementation FCMetalProcessor {
     NSArray<FCMetalProcessingShader *> *_shaders;
 }
 
-- (void)setShader:(NSArray<FCMetalProcessingShader *> *)shaders
+- (void)setShaders:(NSArray<FCMetalProcessingShader *> *)shaders
 {
     _shaders = shaders;
 }
@@ -40,13 +51,28 @@ SOFTWARE.
     return _shaders;
 }
 
-- (CMSampleBufferRef)processSampleBuffer:(CMSampleBufferRef)sampleBuffer
+- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion
 {
-    CMSampleBufferRef currentSampleBuffer = sampleBuffer;
-    for (FCMetalProcessingShader *shader in [_shaders copy]) {
-        currentSampleBuffer = [shader processSampleBuffer:currentSampleBuffer];
+    [self _processSampleBuffer:sampleBuffer forShaders:_shaders atIndex:0 completion:completion];
+}
+
+- (void)_processSampleBuffer:(CMSampleBufferRef)sampleBuffer
+                  forShaders:(NSArray<FCMetalProcessingShader *> *)shaders
+                     atIndex:(NSInteger)index
+                  completion:(void (^)(CMSampleBufferRef))completion
+{
+    if (index >= shaders.count) {
+        completion(sampleBuffer);
+        return;
     }
-    return currentSampleBuffer;
+
+    [shaders[index] processSampleBuffer:sampleBuffer
+                             completion:^(CMSampleBufferRef _Nonnull sampleBuffer) {
+                                 [self _processSampleBuffer:sampleBuffer
+                                                 forShaders:shaders
+                                                    atIndex:index + 1
+                                                 completion:completion];
+                             }];
 }
 
 @end

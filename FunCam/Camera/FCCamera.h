@@ -24,20 +24,31 @@ SOFTWARE.
 
 #import <UIKit/UIKit.h>
 
+@protocol FCSampleBufferObserver;
+@class FCLiveDisplayView;
+@class FCMetalProcessor;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FCCamera : NSObject
 
 #pragma mark - Public Properties
 
-@property (nonatomic, nullable, strong) UIView *liveDisplay;
+@property (nonatomic, nonnull, readonly) FCLiveDisplayView *liveDisplay;
 
 #pragma mark - Public Methods
 
 - (void)captureImage:(void(^)(UIImage *image))image;
+- (void)setMetalProcessor:(FCMetalProcessor *)metalProcessor;
 - (void)setupCamera;
 - (void)startCamera;
 - (void)stopCamera;
+- (void)toggleCamera:(dispatch_block_t)completion;
+
+#pragma mark - Sample Buffer Observing
+
+- (void)addSampleBufferObserver:(id<FCSampleBufferObserver>)observer;
+- (void)removeSampleBufferObserver:(id<FCSampleBufferObserver>)observer;
 
 @end
 

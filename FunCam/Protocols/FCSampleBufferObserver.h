@@ -24,13 +24,11 @@ SOFTWARE.
 
 #import <Foundation/Foundation.h>
 
-#import <CoreMedia/CoreMedia.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FCMetalProcessingShader : NSObject
+@protocol FCSampleBufferObserver <NSObject>
 
-- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion;
+- (void)enqueueSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
 @end
 

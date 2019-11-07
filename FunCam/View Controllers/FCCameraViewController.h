@@ -33,7 +33,5 @@ SOFTWARE.
 #pragma mark - Public Methods
 
 - (void)setCameraAPI:(FCCamera *)camera;
-- (void)setMetalProcessor:(FCMetalProcessor *)metalProcessor;
-- (void)setAvailableMetalProcessingShaders:(NSArray <FCMetalProcessingShader *> *)availableShaders;
 
 @end

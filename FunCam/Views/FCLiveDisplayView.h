@@ -22,16 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-#import <CoreMedia/CoreMedia.h>
+#import <AVKit/AVKit.h>
+
+#import "FCSampleBufferObserver.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FCMetalProcessingShader : NSObject
-
-- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion;
-
+@interface FCLiveDisplayView : UIView <FCSampleBufferObserver>
 @end
 
 NS_ASSUME_NONNULL_END

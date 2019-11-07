@@ -24,23 +24,127 @@ SOFTWARE.
 
 #import "FCCamera.h"
 
-@implementation FCCamera
+#import <AVKit/AVKit.h>
+
+#import "FCCameraSession.h"
+#import "FCLiveDisplayView.h"
+#import "FCMetalProcessor.h"
+#import "FCSampleBufferObserver.h"
+
+@interface FCCamera () <AVCaptureVideoDataOutputSampleBufferDelegate>
+@end
+
+@implementation FCCamera {
+    FCCameraSession *_cameraSession;
+    FCLiveDisplayView *_liveDisplayView;
+    FCMetalProcessor *_metalProcessor;
+    NSMutableSet<id<FCSampleBufferObserver>> *_sampleBufferObservers;
+    NSLock *_observerLock;
+    dispatch_queue_t _backgroundQueue;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _cameraSession = [FCCameraSession new];
+        _liveDisplayView = [FCLiveDisplayView new];
+        _observerLock = [NSLock new];
+        _sampleBufferObservers = [NSMutableSet new];
+        dispatch_queue_attr_t attr =
+            dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
+        _backgroundQueue = dispatch_queue_create("com.fun.camera.camera.queue", attr);
+    }
+    return self;
+}
 
 #pragma mark - Public Methods
 
-- (void)captureImage:(void(^)(UIImage *image))image {
+- (void)captureImage:(void (^)(UIImage *image))image
+{
     // TODO: Implement
 }
 
-- (void)setupCamera {
-    // TODO: Implement
+- (FCLiveDisplayView *)liveDisplay
+{
+    return _liveDisplayView;
 }
 
-- (void)startCamera {
-    // TODO: Implement
+- (void)setMetalProcessor:(FCMetalProcessor *)metalProcessor
+{
+    _metalProcessor = metalProcessor;
 }
 
-- (void)stopCamera {
-    // TODO: Implement
+- (void)setupCamera
+{
+    dispatch_async(_backgroundQueue, ^{
+        [self->_cameraSession configure];
+        [self->_cameraSession setSampleBufferDelegate:self];
+    });
 }
+
+- (void)startCamera
+{
+    dispatch_async(_backgroundQueue, ^{
+        [self->_cameraSession start];
+    });
+}
+
+- (void)stopCamera
+{
+    dispatch_async(_backgroundQueue, ^{
+        [self->_cameraSession stop];
+    });
+}
+
+- (void)toggleCamera:(dispatch_block_t)completion
+{
+    dispatch_async(_backgroundQueue, ^{
+        AVCaptureDevicePosition updatedPosition =
+            self->_cameraSession.currentDevicePosition == AVCaptureDevicePositionBack ? AVCaptureDevicePositionFront
+                                                                                      : AVCaptureDevicePositionBack;
+        [self->_cameraSession setDevicePosition:updatedPosition];
+        completion();
+    });
+}
+
+#pragma mark - Sample Buffer Observing
+
+- (void)addSampleBufferObserver:(id<FCSampleBufferObserver>)observer
+{
+    [_observerLock lock];
+    [_sampleBufferObservers addObject:observer];
+    [_observerLock unlock];
+}
+
+- (void)removeSampleBufferObserver:(id<FCSampleBufferObserver>)observer
+{
+    [_observerLock lock];
+    [_sampleBufferObservers removeObject:observer];
+    [_observerLock unlock];
+}
+
+#pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
+
+- (void)captureOutput:(AVCaptureOutput *)output
+didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+       fromConnection:(AVCaptureConnection *)connection
+{
+    [_observerLock lock];
+    NSSet<id<FCSampleBufferObserver>> *sampleBufferObservers = [_sampleBufferObservers copy];
+    [_observerLock unlock];
+    if (!_metalProcessor) {
+        for (id<FCSampleBufferObserver> observer in sampleBufferObservers) {
+            [observer enqueueSampleBuffer:sampleBuffer];
+        }
+    } else {
+        [_metalProcessor processSampleBuffer:sampleBuffer
+                                  completion:^(CMSampleBufferRef _Nonnull sampleBuffer) {
+                                      for (id<FCSampleBufferObserver> observer in sampleBufferObservers) {
+                                          [observer enqueueSampleBuffer:sampleBuffer];
+                                      }
+                                  }];
+    }
+}
+
 @end

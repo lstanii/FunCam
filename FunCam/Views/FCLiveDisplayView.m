@@ -22,16 +22,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import <Foundation/Foundation.h>
+#import "FCLiveDisplayView.h"
 
-#import <CoreMedia/CoreMedia.h>
+@implementation FCLiveDisplayView {
+    AVSampleBufferDisplayLayer *_previewLayer;
+}
 
-NS_ASSUME_NONNULL_BEGIN
+- (AVSampleBufferDisplayLayer *)_previewLayer
+{
+    if (!_previewLayer) {
+        AVSampleBufferDisplayLayer *previewLayer = [AVSampleBufferDisplayLayer new];
+        previewLayer.frame = self.bounds;
+        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        [self.layer addSublayer:previewLayer];
+        _previewLayer = previewLayer;
+    }
+    return _previewLayer;
+}
 
-@interface FCMetalProcessingShader : NSObject
+- (void)layoutSubviews
+{
+    self._previewLayer.frame = self.bounds;
+    [super layoutSubviews];
+}
 
-- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer completion:(void (^)(CMSampleBufferRef))completion;
+- (void)enqueueSampleBuffer:(CMSampleBufferRef)sampleBuffer
+{
+    [self._previewLayer enqueueSampleBuffer:sampleBuffer];
+}
 
 @end
-
-NS_ASSUME_NONNULL_END

@@ -19,6 +19,8 @@
 		8D8675262373C12400A5F96D /* FCMediaProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86751B2373C12400A5F96D /* FCMediaProcessor.m */; };
 		8D8675272373C12400A5F96D /* FCCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86751D2373C12400A5F96D /* FCCameraViewController.m */; };
 		8D8675282373C12400A5F96D /* FCPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86751E2373C12400A5F96D /* FCPreviewViewController.m */; };
+		8D86752F2374010D00A5F96D /* FCLiveDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86752E2374010D00A5F96D /* FCLiveDisplayView.m */; };
+		8D8675342374062000A5F96D /* FCCameraSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8675332374062000A5F96D /* FCCameraSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,12 @@
 		8D86751E2373C12400A5F96D /* FCPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCPreviewViewController.m; sourceTree = "<group>"; };
 		8D86751F2373C12400A5F96D /* FCCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCCameraViewController.h; sourceTree = "<group>"; };
 		8D8675202373C12400A5F96D /* FCPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCPreviewViewController.h; sourceTree = "<group>"; };
+		8D86752D2374010D00A5F96D /* FCLiveDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCLiveDisplayView.h; sourceTree = "<group>"; };
+		8D86752E2374010D00A5F96D /* FCLiveDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCLiveDisplayView.m; sourceTree = "<group>"; };
+		8D8675312374026E00A5F96D /* FCSampleBufferObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCSampleBufferObserver.h; sourceTree = "<group>"; };
+		8D8675322374062000A5F96D /* FCCameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCCameraSession.h; sourceTree = "<group>"; };
+		8D8675332374062000A5F96D /* FCCameraSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCCameraSession.m; sourceTree = "<group>"; };
+		8D86753923740DD300A5F96D /* FCMetalUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCMetalUtils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +84,9 @@
 		8D8674DD2373B2AB00A5F96D /* FunCam */ = {
 			isa = PBXGroup;
 			children = (
+				8D86753823740DAE00A5F96D /* Utils */,
+				8D8675302374022900A5F96D /* Protocols */,
+				8D86752C2374010D00A5F96D /* Views */,
 				8D86750F2373C12300A5F96D /* AppDelegate */,
 				8D86750C2373C12300A5F96D /* Camera */,
 				8D8675122373C12300A5F96D /* Categories */,
@@ -95,6 +106,8 @@
 			children = (
 				8D86750D2373C12300A5F96D /* FCCamera.h */,
 				8D86750E2373C12300A5F96D /* FCCamera.m */,
+				8D8675322374062000A5F96D /* FCCameraSession.h */,
+				8D8675332374062000A5F96D /* FCCameraSession.m */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -120,11 +133,11 @@
 		8D8675152373C12300A5F96D /* Processors */ = {
 			isa = PBXGroup;
 			children = (
+				8D8675192373C12300A5F96D /* FCMetalProcessingShader.h */,
 				8D8675162373C12300A5F96D /* FCMetalProcessingShader.m */,
 				8D8675172373C12300A5F96D /* FCMetalProcessor.h */,
-				8D8675182373C12300A5F96D /* FCMediaProcessor.h */,
-				8D8675192373C12300A5F96D /* FCMetalProcessingShader.h */,
 				8D86751A2373C12300A5F96D /* FCMetalProcessor.m */,
+				8D8675182373C12300A5F96D /* FCMediaProcessor.h */,
 				8D86751B2373C12400A5F96D /* FCMediaProcessor.m */,
 			);
 			path = Processors;
@@ -133,12 +146,37 @@
 		8D86751C2373C12400A5F96D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8D86751D2373C12400A5F96D /* FCCameraViewController.m */,
-				8D86751E2373C12400A5F96D /* FCPreviewViewController.m */,
 				8D86751F2373C12400A5F96D /* FCCameraViewController.h */,
+				8D86751D2373C12400A5F96D /* FCCameraViewController.m */,
 				8D8675202373C12400A5F96D /* FCPreviewViewController.h */,
+				8D86751E2373C12400A5F96D /* FCPreviewViewController.m */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		8D86752C2374010D00A5F96D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8D86752D2374010D00A5F96D /* FCLiveDisplayView.h */,
+				8D86752E2374010D00A5F96D /* FCLiveDisplayView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8D8675302374022900A5F96D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8D8675312374026E00A5F96D /* FCSampleBufferObserver.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		8D86753823740DAE00A5F96D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8D86753923740DD300A5F96D /* FCMetalUtils.h */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,9 +249,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D86752F2374010D00A5F96D /* FCLiveDisplayView.m in Sources */,
 				8D8674F12373B2B300A5F96D /* main.m in Sources */,
 				8D8675282373C12400A5F96D /* FCPreviewViewController.m in Sources */,
 				8D8675252373C12400A5F96D /* FCMetalProcessor.m in Sources */,
+				8D8675342374062000A5F96D /* FCCameraSession.m in Sources */,
 				8D8675232373C12400A5F96D /* UIImage+SampleBuffer.m in Sources */,
 				8D8675262373C12400A5F96D /* FCMediaProcessor.m in Sources */,
 				8D8675272373C12400A5F96D /* FCCameraViewController.m in Sources */,
@@ -360,8 +400,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 424M5254LK;
 				INFOPLIST_FILE = FunCam/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -377,8 +418,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 424M5254LK;
 				INFOPLIST_FILE = FunCam/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

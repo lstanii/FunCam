@@ -27,6 +27,7 @@ SOFTWARE.
 #import "FCCamera.h"
 #import "FCMetalProcessor.h"
 #import "FCMetalProcessingShader.h"
+#import "FCLiveDisplayView.h"
 
 @implementation FCCameraViewController {
     FCCamera *_camera;
@@ -36,7 +37,17 @@ SOFTWARE.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    FCCamera *camera = [FCCamera new];
+    [self setCameraAPI:camera];
+    UIView *preview = camera.liveDisplay;
+    [self.view insertSubview:preview atIndex:0];
+    preview.frame = self.view.bounds;
+    preview.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    FCMetalProcessor *processor = [FCMetalProcessor new];
+    [camera setMetalProcessor:processor];
+    [camera setupCamera];
+    [camera addSampleBufferObserver:camera.liveDisplay];
+    [camera startCamera];
 }
 
 - (void)setCameraAPI:(FCCamera *)camera
@@ -44,16 +55,19 @@ SOFTWARE.
     _camera = camera;
 }
 
-- (void)setMetalProcessor:(FCMetalProcessor *)metalProcessor {
-    _metalProcessor = metalProcessor;
+- (IBAction)toggleCamera:(UIButton *)sender
+{
+    [sender setEnabled:NO];
+    [_camera toggleCamera:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [sender setEnabled:YES];
+        });
+    }];
 }
 
-- (void)setAvailableMetalProcessingShaders:(NSArray <FCMetalProcessingShader *> *)availableShaders {
-    [_metalProcessor setShader:availableShaders];
-}
-
-- (IBAction)captureImage:(id)sender {
-   // TODO: Implement
+- (IBAction)captureImage:(id)sender
+{
+    // TODO: Implement
 }
 
 @end
