@@ -52,7 +52,6 @@
 		8D8675312374026E00A5F96D /* FCSampleBufferObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCSampleBufferObserver.h; sourceTree = "<group>"; };
 		8D8675322374062000A5F96D /* FCCameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCCameraSession.h; sourceTree = "<group>"; };
 		8D8675332374062000A5F96D /* FCCameraSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCCameraSession.m; sourceTree = "<group>"; };
-		8D86753923740DD300A5F96D /* FCMetalUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCMetalUtils.h; sourceTree = "<group>"; };
 		8D86753C2374E12400A5F96D /* FCTestImageProcessorFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCTestImageProcessorFilter.h; sourceTree = "<group>"; };
 		8D86753D2374E12500A5F96D /* FCTestImageProcessorFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCTestImageProcessorFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,7 +178,6 @@
 		8D86753823740DAE00A5F96D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				8D86753923740DD300A5F96D /* FCMetalUtils.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
