@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Public Methods
 
-- (void)captureImage:(void(^)(UIImage *image))image;
+- (void)captureImage:(void (^)(UIImage *_Nullable image))image;
 - (AVCaptureDevicePosition)currentDevicePosition;
 - (void)setupCamera;
 - (void)startCamera;

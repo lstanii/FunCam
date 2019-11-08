@@ -69,9 +69,22 @@ SOFTWARE.
 
 #pragma mark - Public Methods
 
-- (void)captureImage:(void (^)(UIImage *image))image
+- (void)captureImage:(void (^)(UIImage *image))completion
 {
-    // TODO: Implement
+    dispatch_async(_backgroundQueue, ^{
+        [self->_cameraSession captureImage:^(CIImage *image) {
+            if (!image) {
+                completion(nil);
+                return;
+            }
+            [self.imageProcessorPipeline processImage:image
+                                       devicePosition:self.currentDevicePosition
+                                           completion:^(CIImage *outputImage) {
+                                               UIImage *uiImage = [UIImage imageWithCIImage:outputImage];
+                                               completion(uiImage);
+                                           }];
+        }];
+    });
 }
 
 - (AVCaptureDevicePosition)currentDevicePosition
@@ -119,7 +132,10 @@ SOFTWARE.
 
 - (void)toggleFlash:(dispatch_block_t)completion
 {
-    // TODO: Implement
+    dispatch_async(_backgroundQueue, ^{
+        self->_cameraSession.flashEnabled = !self->_cameraSession.isFlashEnabled;
+        completion();
+    });
 }
 
 #pragma mark - Sample Buffer Observing

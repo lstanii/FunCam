@@ -30,16 +30,37 @@
                                     <action selector="testFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LYf-mb-seD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phk-Bc-ylQ">
+                                <rect key="frame" x="156.5" y="688" width="101" height="30"/>
+                                <state key="normal" title="Capture Image"/>
+                                <connections>
+                                    <action selector="captureImage:" destination="BYZ-38-t0r" eventType="touchDown" id="PFt-RK-oHZ"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="75Y-Dw-OHE">
+                                <rect key="frame" x="10" y="158" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="HAs-wl-E9I"/>
+                                    <constraint firstAttribute="width" constant="128" id="nUb-Dq-daS"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="uFB-Xk-udq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RBj-3D-alw"/>
+                            <constraint firstItem="uFB-Xk-udq" firstAttribute="top" secondItem="Phk-Bc-ylQ" secondAttribute="bottom" constant="17" id="f7F-Jq-z0Z"/>
+                            <constraint firstItem="75Y-Dw-OHE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="114" id="gcd-xo-hIY"/>
+                            <constraint firstItem="Phk-Bc-ylQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="l7e-15-j0H"/>
                             <constraint firstItem="Pz0-sy-Dkg" firstAttribute="top" secondItem="uFB-Xk-udq" secondAttribute="bottom" constant="37" id="nUy-Z3-r4g"/>
                             <constraint firstItem="Pz0-sy-Dkg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="r3z-qg-D3W"/>
+                            <constraint firstItem="75Y-Dw-OHE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="wV5-3g-cNJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Pz0-sy-Dkg" secondAttribute="bottom" constant="30" id="y6h-PZ-Lbz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="previewTestImageView" destination="75Y-Dw-OHE" id="H8s-sf-9Ax"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

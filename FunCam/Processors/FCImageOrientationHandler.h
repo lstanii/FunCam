@@ -24,15 +24,10 @@ SOFTWARE.
 
 #import "FCImageProcessorFilter.h"
 
-@import CoreImage;
+NS_ASSUME_NONNULL_BEGIN
 
-@implementation FCImageProcessorFilter
-
-- (void)processImage:(CIImage *)image
-      devicePosition:(AVCaptureDevicePosition)devicePosition
-          completion:(void (^)(CIImage *outputImage))completion
-{
-    NSAssert(NO, @"Should be implemented by subclass");
-}
+@interface FCImageOrientationHandler : FCImageProcessorFilter
 
 @end
+
+NS_ASSUME_NONNULL_END

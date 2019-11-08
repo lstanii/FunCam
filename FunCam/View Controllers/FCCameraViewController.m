@@ -28,9 +28,11 @@ SOFTWARE.
 #import "FCLiveDisplayView.h"
 #import "FCTestImageProcessorFilter.h"
 #import "FCImageProcessorPipeline.h"
+#import "FCImageOrientationHandler.h"
 
 @implementation FCCameraViewController {
     FCCamera *_camera;
+    __weak IBOutlet UIImageView *_previewTestImageView;
 }
 
 - (void)viewDidLoad
@@ -45,6 +47,7 @@ SOFTWARE.
     [camera setupCamera];
     [camera addSampleBufferObserver:camera.liveDisplay];
     [camera startCamera];
+    [_camera.imageProcessorPipeline setFilters:@[ [FCImageOrientationHandler new] ]];
 }
 
 - (void)setCameraAPI:(FCCamera *)camera
@@ -52,15 +55,17 @@ SOFTWARE.
     _camera = camera;
 }
 
-- (IBAction)testFilter:(UIButton *)sender {
+- (IBAction)testFilter:(UIButton *)sender
+{
     if (sender.tag == 0) {
         sender.tag = 1;
         [sender setTitle:@"Turn Test Filter Off" forState:UIControlStateNormal];
-        [_camera.imageProcessorPipeline setFilters:@[[FCTestImageProcessorFilter new]]];
+        [_camera.imageProcessorPipeline
+            setFilters:@[ [FCImageOrientationHandler new], [FCTestImageProcessorFilter new] ]];
     } else {
         sender.tag = 0;
         [sender setTitle:@"Turn Test Filter On" forState:UIControlStateNormal];
-        [_camera.imageProcessorPipeline setFilters:@[]];
+        [_camera.imageProcessorPipeline setFilters:@[ [FCImageOrientationHandler new] ]];
     }
 }
 
@@ -76,7 +81,10 @@ SOFTWARE.
 
 - (IBAction)captureImage:(id)sender
 {
-    // TODO: Implement
+
+    [_camera captureImage:^(UIImage *_Nullable image) {
+        self->_previewTestImageView.image = image;
+    }];
 }
 
 @end

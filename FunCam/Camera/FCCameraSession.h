@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FCCameraSession : NSObject
 
+@property (nonatomic, getter=isFlashEnabled) BOOL flashEnabled;
+
+- (void)captureImage:(void (^)(CIImage *_Nullable image))completion;
 - (void)configure;
 - (AVCaptureDevicePosition)currentDevicePosition;
 - (void)setDevicePosition:(AVCaptureDevicePosition)devicePosition;

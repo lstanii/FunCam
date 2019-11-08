@@ -22,6 +22,7 @@
 		8D86752F2374010D00A5F96D /* FCLiveDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86752E2374010D00A5F96D /* FCLiveDisplayView.m */; };
 		8D8675342374062000A5F96D /* FCCameraSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8675332374062000A5F96D /* FCCameraSession.m */; };
 		8D86753E2374E12500A5F96D /* FCTestImageProcessorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86753D2374E12500A5F96D /* FCTestImageProcessorFilter.m */; };
+		8D8675422374F3A600A5F96D /* FCImageOrientationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8675412374F3A600A5F96D /* FCImageOrientationHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,9 @@
 		8D8675332374062000A5F96D /* FCCameraSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCCameraSession.m; sourceTree = "<group>"; };
 		8D86753C2374E12400A5F96D /* FCTestImageProcessorFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCTestImageProcessorFilter.h; sourceTree = "<group>"; };
 		8D86753D2374E12500A5F96D /* FCTestImageProcessorFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCTestImageProcessorFilter.m; sourceTree = "<group>"; };
+		8D86753F2374E67300A5F96D /* FCNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FCNotification.h; path = FunCam/Processors/FCNotification.h; sourceTree = SOURCE_ROOT; };
+		8D8675402374F3A600A5F96D /* FCImageOrientationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCImageOrientationHandler.h; sourceTree = "<group>"; };
+		8D8675412374F3A600A5F96D /* FCImageOrientationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCImageOrientationHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,8 @@
 				8D86751B2373C12400A5F96D /* FCMediaProcessor.m */,
 				8D86753C2374E12400A5F96D /* FCTestImageProcessorFilter.h */,
 				8D86753D2374E12500A5F96D /* FCTestImageProcessorFilter.m */,
+				8D8675402374F3A600A5F96D /* FCImageOrientationHandler.h */,
+				8D8675412374F3A600A5F96D /* FCImageOrientationHandler.m */,
 			);
 			path = Processors;
 			sourceTree = "<group>";
@@ -178,6 +184,7 @@
 		8D86753823740DAE00A5F96D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8D86753F2374E67300A5F96D /* FCNotification.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -262,6 +269,7 @@
 				8D8675262373C12400A5F96D /* FCMediaProcessor.m in Sources */,
 				8D8675272373C12400A5F96D /* FCCameraViewController.m in Sources */,
 				8D8675242373C12400A5F96D /* FCImageProcessorFilter.m in Sources */,
+				8D8675422374F3A600A5F96D /* FCImageOrientationHandler.m in Sources */,
 				8D8675212373C12400A5F96D /* FCCamera.m in Sources */,
 				8D8675222373C12400A5F96D /* AppDelegate.m in Sources */,
 			);
@@ -406,7 +414,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 424M5254LK;
 				INFOPLIST_FILE = FunCam/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -424,7 +432,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 424M5254LK;
 				INFOPLIST_FILE = FunCam/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

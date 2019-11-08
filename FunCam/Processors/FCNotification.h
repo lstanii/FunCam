@@ -22,17 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import "FCImageProcessorFilter.h"
+#import <Foundation/Foundation.h>
 
-@import CoreImage;
-
-@implementation FCImageProcessorFilter
-
-- (void)processImage:(CIImage *)image
-      devicePosition:(AVCaptureDevicePosition)devicePosition
-          completion:(void (^)(CIImage *outputImage))completion
-{
-    NSAssert(NO, @"Should be implemented by subclass");
-}
-
-@end
+static NSString *FCNotificationDevicePositionDidChange = @"com.fun.camera.device.position.did.change";
+static NSString *FCNotificationFlashEnabledDidChange = @"com.fun.camera.flash.enabled.did.change";

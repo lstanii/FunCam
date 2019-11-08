@@ -22,17 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import "FCImageProcessorFilter.h"
+#import "FCImageOrientationHandler.h"
 
-@import CoreImage;
+@import UIKit;
 
-@implementation FCImageProcessorFilter
+@implementation FCImageOrientationHandler
 
 - (void)processImage:(CIImage *)image
       devicePosition:(AVCaptureDevicePosition)devicePosition
           completion:(void (^)(CIImage *outputImage))completion
 {
-    NSAssert(NO, @"Should be implemented by subclass");
+    CIImage *outputImage;
+    if (devicePosition == AVCaptureDevicePositionFront) {
+        outputImage = [image imageByApplyingCGOrientation:kCGImagePropertyOrientationLeftMirrored];
+    } else {
+        outputImage = [image imageByApplyingCGOrientation:kCGImagePropertyOrientationRight];
+    }
+
+    completion(outputImage);
 }
 
 @end

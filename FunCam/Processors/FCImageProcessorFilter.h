@@ -24,13 +24,17 @@ SOFTWARE.
 
 #import <Foundation/Foundation.h>
 
+#import <AVKit/AVKit.h>
+
 @class CIImage;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FCImageProcessorFilter : NSObject
 
-- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *))completion;
+- (void)processImage:(CIImage *)image
+      devicePosition:(AVCaptureDevicePosition)devicePosition
+          completion:(void (^)(CIImage *outputImage))completion;
 
 @end
 

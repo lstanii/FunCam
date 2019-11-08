@@ -12,7 +12,9 @@
 
 @implementation FCTestImageProcessorFilter
 
-- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *))completion
+- (void)processImage:(CIImage *)image
+      devicePosition:(AVCaptureDevicePosition)devicePosition
+          completion:(void (^)(CIImage *outputImage))completion
 {
     CIFilter *vignetteFilter = [CIFilter filterWithName:@"CIVignetteEffect"];
     [vignetteFilter setValue:image forKey:kCIInputImageKey];

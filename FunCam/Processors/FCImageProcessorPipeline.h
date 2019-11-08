@@ -24,6 +24,7 @@ SOFTWARE.
 
 #import <Foundation/Foundation.h>
 
+#import <AVKit/AVKit.h>
 #import <CoreMedia/CoreMedia.h>
 
 @class FCImageProcessorFilter;
@@ -33,7 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FCImageProcessorPipeline : NSObject
 
-- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *))completion;
+- (void)processImage:(CIImage *)image
+      devicePosition:(AVCaptureDevicePosition)devicePosition
+          completion:(void (^)(CIImage *outputImage))completion;
 
 - (void)setFilters:(NSArray<FCImageProcessorFilter *> *)filters;
 - (NSArray<FCImageProcessorFilter *> *)filters;

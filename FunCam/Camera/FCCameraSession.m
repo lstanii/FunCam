@@ -7,6 +7,12 @@
 //
 
 #import "FCCameraSession.h"
+#import "FCNotification.h"
+
+@import CoreImage;
+
+@interface FCCameraSession () <AVCapturePhotoCaptureDelegate>
+@end
 
 @implementation FCCameraSession {
     AVCaptureDevice *_captureDevice;
@@ -17,6 +23,8 @@
     AVCapturePhotoOutput *_photoOutput;
     AVCaptureVideoDataOutput *_videoDataOutput;
     dispatch_queue_t _serialSampleBufferQueue;
+    BOOL _isFlashEnabled;
+    void (^_imageCaptureCompletion)(CIImage *image);
 }
 
 - (instancetype)init
@@ -32,6 +40,39 @@
     return self;
 }
 
+- (void)captureImage:(void (^)(CIImage *image))completion
+{
+    if (_imageCaptureCompletion) {
+        completion(nil);
+        return;
+    }
+    AVCapturePhotoSettings *photoSettings = [AVCapturePhotoSettings photoSettings];
+    photoSettings.highResolutionPhotoEnabled = YES;
+    photoSettings.flashMode = _isFlashEnabled ? AVCaptureFlashModeOn : AVCaptureFlashModeOff;
+    _imageCaptureCompletion = completion;
+    [_photoOutput capturePhotoWithSettings:photoSettings delegate:self];
+}
+
+- (void)setFlashEnabled:(BOOL)enabled
+{
+    [_captureSessionLock lock];
+    if (enabled != _isFlashEnabled) {
+        [_captureSessionLock unlock];
+        return;
+    }
+    _isFlashEnabled = YES;
+    [_captureSessionLock unlock];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FCNotificationFlashEnabledDidChange object:nil];
+}
+
+- (BOOL)isFlashEnabled
+{
+    [_captureSessionLock lock];
+    BOOL enabled = _isFlashEnabled;
+    [_captureSessionLock unlock];
+    return enabled;
+}
+
 - (void)setDevicePosition:(AVCaptureDevicePosition)devicePosition
 {
     [_captureSessionLock lock];
@@ -45,6 +86,7 @@
     }];
 
     [_captureSessionLock unlock];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FCNotificationDevicePositionDidChange object:nil];
 }
 
 - (AVCaptureDevicePosition)currentDevicePosition
@@ -86,6 +128,34 @@
     [_captureSessionLock unlock];
 }
 
+- (void)captureOutput:(AVCapturePhotoOutput *)output
+    didFinishProcessingPhoto:(nonnull AVCapturePhoto *)photo
+                       error:(nullable NSError *)error
+{
+    if (!_imageCaptureCompletion) {
+        return;
+    }
+    if (error) {
+        _imageCaptureCompletion(nil);
+        _imageCaptureCompletion = nil;
+        return;
+    }
+
+    CIImage *outputImage = [CIImage imageWithCGImage:photo.CGImageRepresentation];
+    _imageCaptureCompletion(outputImage);
+    _imageCaptureCompletion = nil;
+}
+
+- (void)captureOutput:(AVCapturePhotoOutput *)output
+    didFinishCaptureForResolvedSettings:(AVCaptureResolvedPhotoSettings *)resolvedSettings
+                                  error:(NSError *)error
+{
+    if (_imageCaptureCompletion && error) {
+        _imageCaptureCompletion(nil);
+        _imageCaptureCompletion = nil;
+    }
+}
+
 - (void)_configureSession:(dispatch_block_t)context
 {
     [_captureSession beginConfiguration];
@@ -96,6 +166,7 @@
 - (void)_configurePhotoOutput
 {
     _photoOutput = [AVCapturePhotoOutput new];
+    _photoOutput.highResolutionCaptureEnabled = YES;
     NSAssert([_captureSession canAddOutput:_photoOutput], @"Cannot add input");
     [_captureSession setSessionPreset:AVCaptureSessionPresetPhoto];
     [_captureSession addOutput:_photoOutput];
