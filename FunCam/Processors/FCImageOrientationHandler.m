@@ -44,17 +44,20 @@ SOFTWARE.
           completion:(void (^)(CIImage *outputImage))completion
 {
     CIImage *outputImage;
+    // Rotate the image
     if (devicePosition == AVCaptureDevicePositionFront) {
         outputImage = [image imageByApplyingCGOrientation:kCGImagePropertyOrientationLeftMirrored];
     } else {
         outputImage = [image imageByApplyingCGOrientation:kCGImagePropertyOrientationRight];
     }
 
+    // Crop the image to the display
     CGFloat outputAspect = _aspectSize.width / _aspectSize.height;
     CGRect rect = outputImage.extent;
     rect.size.width = rect.size.height * outputAspect;
     rect.origin.x = 0;
     outputImage = [outputImage imageByCroppingToRect:rect];
+
     completion(outputImage);
 }
 

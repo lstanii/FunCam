@@ -113,14 +113,15 @@ SOFTWARE.
           processImage:sourceImage
         devicePosition:self.camera.currentDevicePosition
             completion:^(CIImage *outputImage) {
+
+                // Resize the image to the view
                 CGRect extent = outputImage.extent;
-                CGFloat aspect = extent.size.height / self->_videoPreviewViewBounds.size.height;
                 CGFloat previewAspect =
                     self->_videoPreviewViewBounds.size.width / self->_videoPreviewViewBounds.size.height;
-
                 CGRect drawRect = extent;
                 drawRect.size.width = previewAspect * drawRect.size.height;
                 drawRect.origin.x = (extent.size.width - drawRect.size.width) / 2.0;
+
                 [self->_videoPreviewView bindDrawable];
 
                 if (self->_eaglContext != [EAGLContext currentContext])
