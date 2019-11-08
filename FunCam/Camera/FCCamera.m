@@ -123,7 +123,7 @@ SOFTWARE.
     });
 }
 
-- (void)toggleCamera:(dispatch_block_t)completion
+- (void)toggleCameraPosition:(dispatch_block_t)completion
 {
     dispatch_async(_backgroundQueue, ^{
         AVCaptureDevicePosition updatedPosition =

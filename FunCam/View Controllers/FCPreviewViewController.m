@@ -78,17 +78,23 @@ SOFTWARE.
 - (void)_processPipeline
 {
     [_imageProcessingPipeline processImage:_image
-                               completion:^(CIImage *outputImage) {
-                                   UIImage *uiImage = [UIImage getImageFromCIImage:outputImage];
-                                   self->_uiImage = uiImage;
-                                   self->_imageView.image = uiImage;
-                               }];
+                                completion:^(CIImage *outputImage) {
+                                    UIImage *uiImage = [UIImage getImageFromCIImage:outputImage];
+                                    self->_uiImage = uiImage;
+                                    self->_imageView.image = uiImage;
+                                }];
 }
 
 - (void)_saveToCameraRoll:(dispatch_block_t)completion
 {
-    [_mediaExporter saveImageToCameraRoll:_uiImage
-                               completion:completion];
+    if (!_uiImage) {
+        NSAssert(NO, @"UIImage must not be nil, in order to save to camera roll");
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    [_mediaExporter saveImageToCameraRoll:_uiImage completion:completion];
 }
 
 @end

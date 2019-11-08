@@ -90,7 +90,8 @@ SOFTWARE.
     [_camera captureImage:^(CIImage *_Nullable image) {
         dispatch_async(dispatch_get_main_queue(), ^{
             typeof(self) strongSelf = weakSelf;
-            if (!strongSelf) {
+            if (!image || !strongSelf) {
+                [strongSelf.view setUserInteractionEnabled:YES];
                 return;
             }
             FCPreviewViewController *previewViewController =
@@ -130,7 +131,7 @@ SOFTWARE.
 {
     [_toggleCameraBtn setEnabled:NO];
     [self _animateToggle:_toggleCameraBtn];
-    [_camera toggleCamera:^{
+    [_camera toggleCameraPosition:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [self->_toggleCameraBtn setEnabled:YES];
             [self->_toggleFlashBtn setHidden:!self->_camera.isFlashSupported];

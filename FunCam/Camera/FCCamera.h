@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startCamera;
 - (void)stopCamera;
 - (void)toggleFlash:(dispatch_block_t)completion;
-- (void)toggleCamera:(dispatch_block_t)completion;
+- (void)toggleCameraPosition:(dispatch_block_t)completion;
 
 #pragma mark - Sample Buffer Observing
 
