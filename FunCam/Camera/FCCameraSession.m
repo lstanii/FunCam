@@ -56,7 +56,7 @@
 - (void)setFlashEnabled:(BOOL)enabled
 {
     [_captureSessionLock lock];
-    if (enabled != _isFlashEnabled) {
+    if (enabled == _isFlashEnabled) {
         [_captureSessionLock unlock];
         return;
     }

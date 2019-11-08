@@ -29,6 +29,7 @@ SOFTWARE.
 #import "FCTestImageProcessorFilter.h"
 #import "FCImageProcessorPipeline.h"
 #import "FCImageOrientationHandler.h"
+#import "FCMediaExporter.h"
 
 @implementation FCCameraViewController {
     FCCamera *_camera;
@@ -69,6 +70,16 @@ SOFTWARE.
     }
 }
 
+- (IBAction)toggleFlash:(UIButton *)sender
+{
+    [sender setEnabled:NO];
+    [_camera toggleFlash:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [sender setEnabled:YES];
+        });
+    }];
+}
+
 - (IBAction)toggleCamera:(UIButton *)sender
 {
     [sender setEnabled:NO];
@@ -84,6 +95,7 @@ SOFTWARE.
 
     [_camera captureImage:^(UIImage *_Nullable image) {
         self->_previewTestImageView.image = image;
+        [[FCMediaExporter new] saveImageToCameraRoll:image completion:nil];
     }];
 }
 

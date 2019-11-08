@@ -80,7 +80,10 @@ SOFTWARE.
             [self.imageProcessorPipeline processImage:image
                                        devicePosition:self.currentDevicePosition
                                            completion:^(CIImage *outputImage) {
-                                               UIImage *uiImage = [UIImage imageWithCIImage:outputImage];
+                                               CIContext *context = [CIContext context];
+                                               CGImageRef imageRef =
+                                                   [context createCGImage:outputImage fromRect:outputImage.extent];
+                                               UIImage *uiImage = [UIImage imageWithCGImage:imageRef];
                                                completion(uiImage);
                                            }];
         }];
@@ -90,6 +93,11 @@ SOFTWARE.
 - (AVCaptureDevicePosition)currentDevicePosition
 {
     return _cameraSession.currentDevicePosition;
+}
+
+- (BOOL)isFlashEnabled
+{
+    return _cameraSession.isFlashEnabled;
 }
 
 - (FCLiveDisplayView *)liveDisplay

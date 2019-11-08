@@ -22,14 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import "FCMediaProcessor.h"
+#import <UIKit/UIKit.h>
 
-@implementation FCMediaProcessor
+NS_ASSUME_NONNULL_BEGIN
 
-#pragma mark - Public Methods
+@interface FCMediaExporter : NSObject
 
-- (void)saveImageToCameraRoll:(UIImage *)image {
-    // TODO: Implement
-}
+- (void)saveImageToCameraRoll:(UIImage *)image completion:(nullable dispatch_block_t)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

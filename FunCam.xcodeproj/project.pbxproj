@@ -16,7 +16,7 @@
 		8D8675232373C12400A5F96D /* UIImage+SampleBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8675142373C12300A5F96D /* UIImage+SampleBuffer.m */; };
 		8D8675242373C12400A5F96D /* FCImageProcessorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8675162373C12300A5F96D /* FCImageProcessorFilter.m */; };
 		8D8675252373C12400A5F96D /* FCImageProcessorPipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86751A2373C12300A5F96D /* FCImageProcessorPipeline.m */; };
-		8D8675262373C12400A5F96D /* FCMediaProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86751B2373C12400A5F96D /* FCMediaProcessor.m */; };
+		8D8675262373C12400A5F96D /* FCMediaExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86751B2373C12400A5F96D /* FCMediaExporter.m */; };
 		8D8675272373C12400A5F96D /* FCCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86751D2373C12400A5F96D /* FCCameraViewController.m */; };
 		8D8675282373C12400A5F96D /* FCPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86751E2373C12400A5F96D /* FCPreviewViewController.m */; };
 		8D86752F2374010D00A5F96D /* FCLiveDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86752E2374010D00A5F96D /* FCLiveDisplayView.m */; };
@@ -40,10 +40,10 @@
 		8D8675142373C12300A5F96D /* UIImage+SampleBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SampleBuffer.m"; sourceTree = "<group>"; };
 		8D8675162373C12300A5F96D /* FCImageProcessorFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCImageProcessorFilter.m; sourceTree = "<group>"; };
 		8D8675172373C12300A5F96D /* FCImageProcessorPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCImageProcessorPipeline.h; sourceTree = "<group>"; };
-		8D8675182373C12300A5F96D /* FCMediaProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCMediaProcessor.h; sourceTree = "<group>"; };
+		8D8675182373C12300A5F96D /* FCMediaExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCMediaExporter.h; sourceTree = "<group>"; };
 		8D8675192373C12300A5F96D /* FCImageProcessorFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCImageProcessorFilter.h; sourceTree = "<group>"; };
 		8D86751A2373C12300A5F96D /* FCImageProcessorPipeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCImageProcessorPipeline.m; sourceTree = "<group>"; };
-		8D86751B2373C12400A5F96D /* FCMediaProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCMediaProcessor.m; sourceTree = "<group>"; };
+		8D86751B2373C12400A5F96D /* FCMediaExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCMediaExporter.m; sourceTree = "<group>"; };
 		8D86751D2373C12400A5F96D /* FCCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCCameraViewController.m; sourceTree = "<group>"; };
 		8D86751E2373C12400A5F96D /* FCPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCPreviewViewController.m; sourceTree = "<group>"; };
 		8D86751F2373C12400A5F96D /* FCCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCCameraViewController.h; sourceTree = "<group>"; };
@@ -143,8 +143,8 @@
 				8D8675162373C12300A5F96D /* FCImageProcessorFilter.m */,
 				8D8675172373C12300A5F96D /* FCImageProcessorPipeline.h */,
 				8D86751A2373C12300A5F96D /* FCImageProcessorPipeline.m */,
-				8D8675182373C12300A5F96D /* FCMediaProcessor.h */,
-				8D86751B2373C12400A5F96D /* FCMediaProcessor.m */,
+				8D8675182373C12300A5F96D /* FCMediaExporter.h */,
+				8D86751B2373C12400A5F96D /* FCMediaExporter.m */,
 				8D86753C2374E12400A5F96D /* FCTestImageProcessorFilter.h */,
 				8D86753D2374E12500A5F96D /* FCTestImageProcessorFilter.m */,
 				8D8675402374F3A600A5F96D /* FCImageOrientationHandler.h */,
@@ -266,7 +266,7 @@
 				8D8675252373C12400A5F96D /* FCImageProcessorPipeline.m in Sources */,
 				8D8675342374062000A5F96D /* FCCameraSession.m in Sources */,
 				8D8675232373C12400A5F96D /* UIImage+SampleBuffer.m in Sources */,
-				8D8675262373C12400A5F96D /* FCMediaProcessor.m in Sources */,
+				8D8675262373C12400A5F96D /* FCMediaExporter.m in Sources */,
 				8D8675272373C12400A5F96D /* FCCameraViewController.m in Sources */,
 				8D8675242373C12400A5F96D /* FCImageProcessorFilter.m in Sources */,
 				8D8675422374F3A600A5F96D /* FCImageOrientationHandler.m in Sources */,

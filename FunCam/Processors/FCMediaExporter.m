@@ -22,14 +22,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import <UIKit/UIKit.h>
+#import "FCMediaExporter.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@implementation FCMediaExporter {
+    dispatch_block_t _completion;
+    dispatch_queue_t _queue;
+}
 
-@interface FCMediaProcessor : NSObject
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        dispatch_queue_attr_t attr =
+            dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, 0);
+        _queue = dispatch_queue_create("com.fun.camera.media.exporter", attr);
+    }
+    return self;
+}
 
-- (void)saveImageToCameraRoll:(UIImage *)image;
+#pragma mark - Public Methods
+
+- (void)saveImageToCameraRoll:(UIImage *)image completion:(dispatch_block_t)completion
+{
+    dispatch_async(_queue, ^{
+        self->_completion = completion;
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    });
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    if (_completion) {
+        _completion();
+    }
+}
 
 @end
-
-NS_ASSUME_NONNULL_END

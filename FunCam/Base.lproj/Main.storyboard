@@ -44,6 +44,13 @@
                                     <constraint firstAttribute="width" constant="128" id="nUb-Dq-daS"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyo-dO-q95">
+                                <rect key="frame" x="163.5" y="630" width="87" height="30"/>
+                                <state key="normal" title="Toggle Flash"/>
+                                <connections>
+                                    <action selector="toggleFlash:" destination="BYZ-38-t0r" eventType="touchDown" id="sP4-F6-97g"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -52,14 +59,16 @@
                             <constraint firstItem="75Y-Dw-OHE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="114" id="gcd-xo-hIY"/>
                             <constraint firstItem="Phk-Bc-ylQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="l7e-15-j0H"/>
                             <constraint firstItem="Pz0-sy-Dkg" firstAttribute="top" secondItem="uFB-Xk-udq" secondAttribute="bottom" constant="37" id="nUy-Z3-r4g"/>
+                            <constraint firstItem="fyo-dO-q95" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oYi-r4-5LS"/>
                             <constraint firstItem="Pz0-sy-Dkg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="r3z-qg-D3W"/>
                             <constraint firstItem="75Y-Dw-OHE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="wV5-3g-cNJ"/>
+                            <constraint firstItem="Phk-Bc-ylQ" firstAttribute="top" secondItem="fyo-dO-q95" secondAttribute="bottom" constant="28" id="wmW-r0-soc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Pz0-sy-Dkg" secondAttribute="bottom" constant="30" id="y6h-PZ-Lbz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="previewTestImageView" destination="75Y-Dw-OHE" id="H8s-sf-9Ax"/>
+                        <outlet property="_previewTestImageView" destination="75Y-Dw-OHE" id="6VL-I3-FsE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

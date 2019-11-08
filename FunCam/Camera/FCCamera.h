@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)captureImage:(void (^)(UIImage *_Nullable image))image;
 - (AVCaptureDevicePosition)currentDevicePosition;
+- (BOOL)isFlashEnabled;
+
 - (void)setupCamera;
 - (void)startCamera;
 - (void)stopCamera;
