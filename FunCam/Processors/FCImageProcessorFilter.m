@@ -28,9 +28,7 @@ SOFTWARE.
 
 @implementation FCImageProcessorFilter
 
-- (void)processImage:(CIImage *)image
-      devicePosition:(AVCaptureDevicePosition)devicePosition
-          completion:(void (^)(CIImage *outputImage))completion
+- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
     NSAssert(NO, @"Should be implemented by subclass");
 }

@@ -24,13 +24,15 @@ SOFTWARE.
 
 #import <UIKit/UIKit.h>
 
+@class FCImageProcessorPipeline;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FCPreviewViewController : UIViewController
 
 #pragma mark - Public Methods
 
-- (void)displayImage:(UIImage *)image;
+- (void)displayImage:(UIImage *)image imageProcessingPipeline:(FCImageProcessorPipeline *)imageProcessingPipeline;
 
 @end
 

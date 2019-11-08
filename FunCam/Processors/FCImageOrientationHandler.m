@@ -23,29 +23,30 @@ SOFTWARE.
 */
 
 #import "FCImageOrientationHandler.h"
+#import "FCCamera.h"
 
 @import UIKit;
 
 @implementation FCImageOrientationHandler {
     CGSize _aspectSize;
+    FCCamera *_camera;
 }
 
-- (instancetype)initWithAspectSize:(CGSize)aspectSize
+- (instancetype)initWithAspectSize:(CGSize)aspectSize camera:(FCCamera *)camera
 {
     self = [super init];
     if (self) {
         _aspectSize = aspectSize;
+        _camera = camera;
     }
     return self;
 }
 
-- (void)processImage:(CIImage *)image
-      devicePosition:(AVCaptureDevicePosition)devicePosition
-          completion:(void (^)(CIImage *outputImage))completion
+- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
     CIImage *outputImage;
     // Rotate the image
-    if (devicePosition == AVCaptureDevicePositionFront) {
+    if (_camera.currentDevicePosition == AVCaptureDevicePositionFront) {
         outputImage = [image imageByApplyingCGOrientation:kCGImagePropertyOrientationLeftMirrored];
     } else {
         outputImage = [image imageByApplyingCGOrientation:kCGImagePropertyOrientationRight];

@@ -34,9 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FCImageProcessorPipeline : NSObject
 
-- (void)processImage:(CIImage *)image
-      devicePosition:(AVCaptureDevicePosition)devicePosition
-          completion:(void (^)(CIImage *outputImage))completion;
+- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion;
 
 - (void)setFilters:(NSArray<FCImageProcessorFilter *> *)filters;
 - (NSArray<FCImageProcessorFilter *> *)filters;

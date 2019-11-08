@@ -29,12 +29,10 @@ SOFTWARE.
 #import "FCTestImageProcessorFilter.h"
 #import "FCImageProcessorPipeline.h"
 #import "FCImageOrientationHandler.h"
-#import "FCMediaExporter.h"
 #import "UIImage+CIImage.h"
 
 @implementation FCCameraViewController {
     FCCamera *_camera;
-    __weak IBOutlet UIImageView *_previewTestImageView;
 }
 
 - (void)viewDidLoad
@@ -49,8 +47,9 @@ SOFTWARE.
     [camera setupCamera];
     [camera addSampleBufferObserver:camera.liveDisplay];
     [camera startCamera];
-    [_camera.imageProcessorPipeline
-        setFilters:@[ [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size] ]];
+    [_camera.imageProcessorPipeline setFilters:@[
+        [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size camera:_camera]
+    ]];
 }
 
 - (void)setCameraAPI:(FCCamera *)camera
@@ -58,29 +57,14 @@ SOFTWARE.
     _camera = camera;
 }
 
-- (IBAction)testFilter:(UIButton *)sender
-{
-    if (sender.tag == 0) {
-        sender.tag = 1;
-        [sender setTitle:@"Turn Test Filter Off" forState:UIControlStateNormal];
-        [_camera.imageProcessorPipeline setFilters:@[
-            [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size],
-            [FCTestImageProcessorFilter new]
-        ]];
-    } else {
-        sender.tag = 0;
-        [sender setTitle:@"Turn Test Filter On" forState:UIControlStateNormal];
-        [_camera.imageProcessorPipeline
-            setFilters:@[ [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size] ]];
-    }
-}
-
 - (IBAction)toggleFlash:(UIButton *)sender
 {
     [sender setEnabled:NO];
     [_camera toggleFlash:^{
+        NSString *imageName = self->_camera.isFlashEnabled ? @"ToggleFlash-active" : @"ToggleFlash-inactive";
         dispatch_async(dispatch_get_main_queue(), ^{
             [sender setEnabled:YES];
+            [sender setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         });
     }];
 }
@@ -100,14 +84,10 @@ SOFTWARE.
 
     [_camera captureImage:^(CIImage *_Nullable image) {
 
-        [self->_camera.imageProcessorPipeline
-              processImage:image
-            devicePosition:self->_camera.currentDevicePosition
-                completion:^(CIImage *outputImage) {
-                    UIImage *uiImage = [UIImage getImageFromCIImage:outputImage];
-                    self->_previewTestImageView.image = uiImage;
-                    [[FCMediaExporter new] saveImageToCameraRoll:uiImage completion:nil];
-                }];
+        [self->_camera.imageProcessorPipeline processImage:image
+                                                completion:^(CIImage *outputImage) {
+                                                    UIImage *uiImage = [UIImage getImageFromCIImage:outputImage];
+                                                }];
     }];
 }
 

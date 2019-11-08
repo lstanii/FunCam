@@ -23,9 +23,14 @@ SOFTWARE.
 */
 
 #import "FCPreviewViewController.h"
+#import "FCMediaExporter.h"
+#import "FCImageProcessorPipeline.h"
 
 @implementation FCPreviewViewController {
     UIImage *_image;
+    FCImageProcessorPipeline *_imageProcessingPipeline;
+    FCMediaExporter *_mediaExporter;
+    __weak IBOutlet UIImageView *_imageView;
 }
 
 #pragma mark - Overrides
@@ -33,15 +38,16 @@ SOFTWARE.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    _mediaExporter = [FCMediaExporter new];
 }
 
 #pragma mark - Public Methods
 
-- (void)displayImage:(UIImage *)image
+- (void)displayImage:(UIImage *)image imageProcessingPipeline:(FCImageProcessorPipeline *)imageProcessingPipeline
 {
+    _imageProcessingPipeline = imageProcessingPipeline;
     _image = image;
-    // TODO: Implement
+    
 }
 
 #pragma mark - Actions
@@ -53,6 +59,7 @@ SOFTWARE.
 
 - (IBAction)saveImage:(id)sender {
     [self _saveToCameraRoll];
+    [self _dismiss];
 }
 
 #pragma mark - Private Methods
@@ -63,7 +70,9 @@ SOFTWARE.
 }
 
 - (void)_saveToCameraRoll {
-    
+    [_mediaExporter saveImageToCameraRoll:_image completion:^{
+        
+    }];
 }
 
 @end

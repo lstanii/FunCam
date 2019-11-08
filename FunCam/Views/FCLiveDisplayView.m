@@ -110,35 +110,34 @@ SOFTWARE.
 
     // Process Image
     [self.camera.imageProcessorPipeline
-          processImage:sourceImage
-        devicePosition:self.camera.currentDevicePosition
-            completion:^(CIImage *outputImage) {
+        processImage:sourceImage
+          completion:^(CIImage *outputImage) {
 
-                // Resize the image to the view
-                CGRect extent = outputImage.extent;
-                CGFloat previewAspect =
-                    self->_videoPreviewViewBounds.size.width / self->_videoPreviewViewBounds.size.height;
-                CGRect drawRect = extent;
-                drawRect.size.width = previewAspect * drawRect.size.height;
-                drawRect.origin.x = (extent.size.width - drawRect.size.width) / 2.0;
+              // Resize the image to the view
+              CGRect extent = outputImage.extent;
+              CGFloat previewAspect =
+                  self->_videoPreviewViewBounds.size.width / self->_videoPreviewViewBounds.size.height;
+              CGRect drawRect = extent;
+              drawRect.size.width = previewAspect * drawRect.size.height;
+              drawRect.origin.x = (extent.size.width - drawRect.size.width) / 2.0;
 
-                [self->_videoPreviewView bindDrawable];
+              [self->_videoPreviewView bindDrawable];
 
-                if (self->_eaglContext != [EAGLContext currentContext])
-                    [EAGLContext setCurrentContext:self->_eaglContext];
+              if (self->_eaglContext != [EAGLContext currentContext])
+                  [EAGLContext setCurrentContext:self->_eaglContext];
 
-                // clear eagl view to grey
-                glClearColor(0.5, 0.5, 0.5, 1.0);
-                glClear(GL_COLOR_BUFFER_BIT);
+              // clear eagl view to grey
+              glClearColor(0.5, 0.5, 0.5, 1.0);
+              glClear(GL_COLOR_BUFFER_BIT);
 
-                // set the blend mode to "source over" so that CI will use that
-                glEnable(GL_BLEND);
-                glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+              // set the blend mode to "source over" so that CI will use that
+              glEnable(GL_BLEND);
+              glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
-                [self->_ciContext drawImage:outputImage inRect:self->_videoPreviewViewBounds fromRect:drawRect];
+              [self->_ciContext drawImage:outputImage inRect:self->_videoPreviewViewBounds fromRect:drawRect];
 
-                [self->_videoPreviewView display];
-            }];
+              [self->_videoPreviewView display];
+          }];
 }
 
 @end

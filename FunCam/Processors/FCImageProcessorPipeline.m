@@ -42,15 +42,12 @@ SOFTWARE.
     return _filters;
 }
 
-- (void)processImage:(CIImage *)image
-      devicePosition:(AVCaptureDevicePosition)devicePosition
-          completion:(void (^)(CIImage *outputImage))completion
+- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
-    [self _processImage:image devicePosition:devicePosition forFilters:_filters atIndex:0 completion:completion];
+    [self _processImage:image forFilters:_filters atIndex:0 completion:completion];
 }
 
 - (void)_processImage:(CIImage *)image
-       devicePosition:(AVCaptureDevicePosition)devicePosition
            forFilters:(NSArray<FCImageProcessorFilter *> *)filters
               atIndex:(NSInteger)index
            completion:(void (^)(CIImage *outputImage))completion
@@ -60,13 +57,8 @@ SOFTWARE.
         return;
     }
     [filters[index] processImage:image
-                  devicePosition:devicePosition
                       completion:^(CIImage *outputImage) {
-                          [self _processImage:outputImage
-                               devicePosition:devicePosition
-                                   forFilters:filters
-                                      atIndex:index + 1
-                                   completion:completion];
+                          [self _processImage:outputImage forFilters:filters atIndex:index + 1 completion:completion];
                       }];
 }
 

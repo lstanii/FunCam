@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FCImageOrientationHandler : FCImageProcessorFilter
 
-- (instancetype)initWithAspectSize:(CGSize)aspectSize;
+- (instancetype)initWithAspectSize:(CGSize)aspectSize camera:(FCCamera *)camera;
 
 @end
 
