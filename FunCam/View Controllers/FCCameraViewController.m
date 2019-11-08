@@ -30,6 +30,7 @@ SOFTWARE.
 #import "FCImageProcessorPipeline.h"
 #import "FCImageOrientationHandler.h"
 #import "FCMediaExporter.h"
+#import "UIImage+CIImage.h"
 
 @implementation FCCameraViewController {
     FCCamera *_camera;
@@ -93,9 +94,16 @@ SOFTWARE.
 - (IBAction)captureImage:(id)sender
 {
 
-    [_camera captureImage:^(UIImage *_Nullable image) {
-        self->_previewTestImageView.image = image;
-        [[FCMediaExporter new] saveImageToCameraRoll:image completion:nil];
+    [_camera captureImage:^(CIImage *_Nullable image) {
+
+        [self->_camera.imageProcessorPipeline
+              processImage:image
+            devicePosition:self->_camera.currentDevicePosition
+                completion:^(CIImage *outputImage) {
+                    UIImage *uiImage = [UIImage getImageFromCIImage:outputImage];
+                    self->_previewTestImageView.image = uiImage;
+                    [[FCMediaExporter new] saveImageToCameraRoll:uiImage completion:nil];
+                }];
     }];
 }
 

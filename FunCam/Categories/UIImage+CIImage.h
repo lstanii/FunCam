@@ -28,9 +28,9 @@ SOFTWARE.
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIImage (SampleBuffer)
+@interface UIImage (CIImage)
 
-+ (UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer;
++ (UIImage *)getImageFromCIImage:(CIImage *)image;
 
 @end
 

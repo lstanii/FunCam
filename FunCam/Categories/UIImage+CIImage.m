@@ -22,13 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import "UIImage+SampleBuffer.h"
+#import "UIImage+CIImage.h"
 
-@implementation UIImage (SampleBuffer)
+@implementation UIImage (CIImage)
 
-+ (UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer {
-    // TODO: Implement
-    return nil;
++ (UIImage *)getImageFromCIImage:(CIImage *)image
+{
+    CIContext *context = [CIContext context];
+    CGImageRef imageRef = [context createCGImage:image fromRect:image.extent];
+    UIImage *uiImage = [UIImage imageWithCGImage:imageRef];
+    return uiImage;
 }
 
 @end

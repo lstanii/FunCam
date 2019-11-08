@@ -60,7 +60,7 @@
         [_captureSessionLock unlock];
         return;
     }
-    _isFlashEnabled = YES;
+    _isFlashEnabled = enabled;
     [_captureSessionLock unlock];
     [[NSNotificationCenter defaultCenter] postNotificationName:FCNotificationFlashEnabledDidChange object:nil];
 }

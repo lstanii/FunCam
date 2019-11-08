@@ -69,24 +69,10 @@ SOFTWARE.
 
 #pragma mark - Public Methods
 
-- (void)captureImage:(void (^)(UIImage *image))completion
+- (void)captureImage:(void (^)(CIImage *image))completion
 {
     dispatch_async(_backgroundQueue, ^{
-        [self->_cameraSession captureImage:^(CIImage *image) {
-            if (!image) {
-                completion(nil);
-                return;
-            }
-            [self.imageProcessorPipeline processImage:image
-                                       devicePosition:self.currentDevicePosition
-                                           completion:^(CIImage *outputImage) {
-                                               CIContext *context = [CIContext context];
-                                               CGImageRef imageRef =
-                                                   [context createCGImage:outputImage fromRect:outputImage.extent];
-                                               UIImage *uiImage = [UIImage imageWithCGImage:imageRef];
-                                               completion(uiImage);
-                                           }];
-        }];
+        [self->_cameraSession captureImage:completion];
     });
 }
 
