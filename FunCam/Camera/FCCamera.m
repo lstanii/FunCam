@@ -40,6 +40,8 @@ SOFTWARE.
     NSMutableSet<id<FCSampleBufferObserver>> *_sampleBufferObservers;
     NSLock *_observerLock;
     dispatch_queue_t _backgroundQueue;
+    BOOL _isStoppedInBackground;
+    BOOL _isStarted;
 }
 
 - (instancetype)init
@@ -55,11 +57,11 @@ SOFTWARE.
             dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
         _backgroundQueue = dispatch_queue_create("com.fun.camera.camera.queue", attr);
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(stopCamera)
+                                                 selector:@selector(_didEnterBackground)
                                                      name:UIApplicationDidEnterBackgroundNotification
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(startCamera)
+                                                 selector:@selector(_didBecomeActive)
                                                      name:UIApplicationDidBecomeActiveNotification
                                                    object:nil];
         _imageProcessorPipeline = [FCImageProcessorPipeline new];
@@ -108,13 +110,16 @@ SOFTWARE.
 {
     dispatch_async(_backgroundQueue, ^{
         [self->_cameraSession start];
+        self->_isStarted = YES;
     });
 }
 
 - (void)stopCamera
 {
     dispatch_async(_backgroundQueue, ^{
-        [self->_cameraSession stop];
+        if (self->_isStarted) {
+            [self->_cameraSession stop];
+        }
     });
 }
 
@@ -134,6 +139,28 @@ SOFTWARE.
     dispatch_async(_backgroundQueue, ^{
         self->_cameraSession.flashEnabled = !self->_cameraSession.isFlashEnabled;
         completion();
+    });
+}
+
+#pragma mark - Private Methods
+
+- (void)_didBecomeActive
+{
+    dispatch_async(_backgroundQueue, ^{
+        if (self->_isStoppedInBackground) {
+            self->_isStoppedInBackground = NO;
+            [self startCamera];
+        }
+    });
+}
+
+- (void)_didEnterBackground
+{
+    dispatch_async(_backgroundQueue, ^{
+        if (self->_isStarted) {
+            [self->_cameraSession stop];
+            self->_isStoppedInBackground = YES;
+        }
     });
 }
 
