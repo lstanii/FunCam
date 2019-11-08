@@ -49,7 +49,8 @@ SOFTWARE.
     [camera setupCamera];
     [camera addSampleBufferObserver:camera.liveDisplay];
     [camera startCamera];
-    [_camera.imageProcessorPipeline setFilters:@[ [FCImageOrientationHandler new] ]];
+    [_camera.imageProcessorPipeline
+        setFilters:@[ [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size] ]];
 }
 
 - (void)setCameraAPI:(FCCamera *)camera
@@ -62,12 +63,15 @@ SOFTWARE.
     if (sender.tag == 0) {
         sender.tag = 1;
         [sender setTitle:@"Turn Test Filter Off" forState:UIControlStateNormal];
-        [_camera.imageProcessorPipeline
-            setFilters:@[ [FCImageOrientationHandler new], [FCTestImageProcessorFilter new] ]];
+        [_camera.imageProcessorPipeline setFilters:@[
+            [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size],
+            [FCTestImageProcessorFilter new]
+        ]];
     } else {
         sender.tag = 0;
         [sender setTitle:@"Turn Test Filter On" forState:UIControlStateNormal];
-        [_camera.imageProcessorPipeline setFilters:@[ [FCImageOrientationHandler new] ]];
+        [_camera.imageProcessorPipeline
+            setFilters:@[ [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size] ]];
     }
 }
 

@@ -24,9 +24,13 @@ SOFTWARE.
 
 #import "FCImageProcessorFilter.h"
 
+@class FCCamera;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FCImageOrientationHandler : FCImageProcessorFilter
+
+- (instancetype)initWithAspectSize:(CGSize)aspectSize;
 
 @end
 

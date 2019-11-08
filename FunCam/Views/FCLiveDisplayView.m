@@ -114,22 +114,13 @@ SOFTWARE.
         devicePosition:self.camera.currentDevicePosition
             completion:^(CIImage *outputImage) {
                 CGRect extent = outputImage.extent;
-                CGFloat outputAspect = extent.size.width / extent.size.height;
+                CGFloat aspect = extent.size.height / self->_videoPreviewViewBounds.size.height;
                 CGFloat previewAspect =
                     self->_videoPreviewViewBounds.size.width / self->_videoPreviewViewBounds.size.height;
 
-                // we want to maintain the aspect radio of the screen size, so we clip the video image
                 CGRect drawRect = extent;
-                if (outputAspect > previewAspect) {
-                    // use full height of the video image, and center crop the width
-                    // drawRect.origin.x += (drawRect.size.width - drawRect.size.height * previewAspect) / 2.0;
-                    drawRect.size.width = drawRect.size.height * previewAspect;
-                } else {
-                    // use full width of the video image, and center crop the height
-                    // drawRect.origin.y += (drawRect.size.height - drawRect.size.width / previewAspect) / 2.0;
-                    drawRect.size.height = drawRect.size.width / previewAspect;
-                }
-
+                drawRect.size.width = previewAspect * drawRect.size.height;
+                drawRect.origin.x = (extent.size.width - drawRect.size.width) / 2.0;
                 [self->_videoPreviewView bindDrawable];
 
                 if (self->_eaglContext != [EAGLContext currentContext])

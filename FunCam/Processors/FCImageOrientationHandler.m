@@ -26,7 +26,18 @@ SOFTWARE.
 
 @import UIKit;
 
-@implementation FCImageOrientationHandler
+@implementation FCImageOrientationHandler {
+    CGSize _aspectSize;
+}
+
+- (instancetype)initWithAspectSize:(CGSize)aspectSize
+{
+    self = [super init];
+    if (self) {
+        _aspectSize = aspectSize;
+    }
+    return self;
+}
 
 - (void)processImage:(CIImage *)image
       devicePosition:(AVCaptureDevicePosition)devicePosition
@@ -39,6 +50,11 @@ SOFTWARE.
         outputImage = [image imageByApplyingCGOrientation:kCGImagePropertyOrientationRight];
     }
 
+    CGFloat outputAspect = _aspectSize.width / _aspectSize.height;
+    CGRect rect = outputImage.extent;
+    rect.size.width = rect.size.height * outputAspect;
+    rect.origin.x = 0;
+    outputImage = [outputImage imageByCroppingToRect:rect];
     completion(outputImage);
 }
 
