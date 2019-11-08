@@ -72,6 +72,7 @@
                     </view>
                     <connections>
                         <outlet property="_toggleCameraBtn" destination="KBW-ch-SNg" id="JOU-72-8OM"/>
+                        <outlet property="_toggleFlashBtn" destination="bXj-4J-3fb" id="byL-De-cKw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

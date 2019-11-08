@@ -86,6 +86,11 @@ SOFTWARE.
     return _cameraSession.isFlashEnabled;
 }
 
+- (BOOL)isFlashSupported
+{
+    return _cameraSession.isFlashSupported;
+}
+
 - (FCLiveDisplayView *)liveDisplay
 {
     return _liveDisplayView;

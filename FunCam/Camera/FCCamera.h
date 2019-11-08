@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nonnull, readonly) FCLiveDisplayView *liveDisplay;
 @property (nonatomic, nonnull, readonly) FCImageProcessorPipeline *imageProcessorPipeline;
+@property (nonatomic, readonly) BOOL isFlashSupported;
 
 #pragma mark - Public Methods
 

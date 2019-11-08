@@ -35,6 +35,7 @@ SOFTWARE.
 @implementation FCCameraViewController {
     FCCamera *_camera;
     __weak IBOutlet UIButton *_toggleCameraBtn;
+    __weak IBOutlet UIButton *_toggleFlashBtn;
 }
 
 - (void)viewDidLoad
@@ -129,6 +130,7 @@ SOFTWARE.
     [_camera toggleCamera:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [self->_toggleCameraBtn setEnabled:YES];
+            [self->_toggleFlashBtn setHidden:!self->_camera.isFlashSupported];
         });
     }];
 }

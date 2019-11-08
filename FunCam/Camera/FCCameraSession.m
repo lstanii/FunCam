@@ -48,7 +48,9 @@
     }
     AVCapturePhotoSettings *photoSettings = [AVCapturePhotoSettings photoSettings];
     photoSettings.highResolutionPhotoEnabled = YES;
-    photoSettings.flashMode = _isFlashEnabled ? AVCaptureFlashModeOn : AVCaptureFlashModeOff;
+    if (_isFlashSupported) {
+        photoSettings.flashMode = _isFlashEnabled ? AVCaptureFlashModeOn : AVCaptureFlashModeOff;
+    }
     _imageCaptureCompletion = completion;
     [_photoOutput capturePhotoWithSettings:photoSettings delegate:self];
 }
@@ -194,6 +196,7 @@
     NSAssert([_captureSession canAddInput:_captureDeviceInput], @"Cannot add input");
     [_captureSession addInput:_captureDeviceInput];
     _devicePosition = devicePosition;
+    _isFlashSupported = [_photoOutput.supportedFlashModes containsObject:@(AVCaptureFlashModeOn)];
 }
 
 @end
