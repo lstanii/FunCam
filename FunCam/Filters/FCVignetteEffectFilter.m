@@ -38,10 +38,5 @@ SOFTWARE.
     completion([vignetteFilter outputImage]);
 }
 
-- (void)toggle
-{
-    self.enabled = !self.enabled;
-}
-
 @end
 

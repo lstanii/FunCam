@@ -99,8 +99,8 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="jwJ-Pv-lBI"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYq-fh-eQM">
-                                <rect key="frame" x="276" y="751" width="43" height="43"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYq-fh-eQM">
+                                <rect key="frame" x="272.5" y="747" width="50" height="50"/>
                                 <state key="normal" image="ToggleFilters"/>
                                 <connections>
                                     <action selector="toggleFilters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XJb-Vu-Ius"/>
@@ -113,7 +113,6 @@
                             <constraint firstItem="bXj-4J-3fb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="2f4-W7-YiI"/>
                             <constraint firstAttribute="bottom" secondItem="2Qq-JU-DQ5" secondAttribute="bottom" constant="178" id="5Gd-fs-dAb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Qq-JU-DQ5" secondAttribute="trailing" constant="34" id="FSG-nQ-0rf"/>
-                            <constraint firstItem="JYq-fh-eQM" firstAttribute="top" secondItem="2Qq-JU-DQ5" secondAttribute="bottom" constant="33" id="Jl1-Kr-vZO"/>
                             <constraint firstItem="JYq-fh-eQM" firstAttribute="centerX" secondItem="bXj-4J-3fb" secondAttribute="centerX" constant="-0.5" id="KeF-sG-qxK"/>
                             <constraint firstItem="2Qq-JU-DQ5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="Qi5-Gu-tuJ"/>
                             <constraint firstItem="uKO-bo-b3n" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Yzf-kC-5O3"/>

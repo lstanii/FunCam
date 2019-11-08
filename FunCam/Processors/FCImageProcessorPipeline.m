@@ -50,9 +50,15 @@ SOFTWARE.
 
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
-    [_orientationHandler processImage:image completion:^(CIImage *outputImage) {
-        [self _processImage:outputImage forFilters:self->_filters atIndex:0 completion:completion];
-    }];
+    if (_orientationHandler) {
+        [_orientationHandler
+            processImage:image
+              completion:^(CIImage *outputImage) {
+                  [self _processImage:outputImage forFilters:self->_filters atIndex:0 completion:completion];
+              }];
+    } else {
+        [self _processImage:image forFilters:self->_filters atIndex:0 completion:completion];
+    }
 }
 
 - (void)_processImage:(CIImage *)image
@@ -64,18 +70,10 @@ SOFTWARE.
         completion(image);
         return;
     }
-    if (filters[index].enabled) {
-        [filters[index] processImage:image
-        completion:^(CIImage *outputImage) {
-            [self _processImage:outputImage forFilters:filters atIndex:index + 1 completion:completion];
-        }];
-    } else {
-        [self _processImage:image forFilters:filters atIndex:index + 1 completion:completion];
-    }
-//    [filters[index] processImage:image
-//                      completion:^(CIImage *outputImage) {
-//                          [self _processImage:outputImage forFilters:filters atIndex:index + 1 completion:completion];
-//                      }];
+    [filters[index] processImage:image
+                      completion:^(CIImage *outputImage) {
+                          [self _processImage:outputImage forFilters:filters atIndex:index + 1 completion:completion];
+                      }];
 }
 
 @end

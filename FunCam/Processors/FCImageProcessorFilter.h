@@ -33,8 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FCImageProcessorFilter : NSObject
 
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion;
-- (void)toggle;
-@property (nonatomic, assign) BOOL enabled;
 
 @end
 

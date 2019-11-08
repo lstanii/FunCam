@@ -33,9 +33,4 @@ SOFTWARE.
     completion([effectFilter outputImage]);
 }
 
-- (void)toggle
-{
-    self.enabled = !self.enabled;
-}
-
 @end

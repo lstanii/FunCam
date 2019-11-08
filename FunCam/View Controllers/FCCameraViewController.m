@@ -41,7 +41,8 @@ SOFTWARE.
     __weak IBOutlet UIButton *_toggleFlashBtn;
     __weak IBOutlet UIButton *_toggleFiltersBtn;
     __weak IBOutlet UICollectionView *_filterCollectionView;
-    NSArray<FCImageProcessorFilter *> *_filters;
+    NSArray<FCImageProcessorFilter *> *_availableFilters;
+    NSMutableSet<FCImageProcessorFilter *> *_activeFilters;
     BOOL _filterViewEnabled;
 }
 
@@ -57,7 +58,10 @@ SOFTWARE.
     [camera setupCamera];
     [camera addSampleBufferObserver:camera.liveDisplay];
     [camera startCamera];
-    [_camera.imageProcessorPipeline setOrientationHandler:[[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size camera:_camera]];
+
+    [_camera.imageProcessorPipeline
+        setOrientationHandler:[[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size
+                                                                             camera:_camera]];
     UITapGestureRecognizer *doubleTapGestureRecognizer =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_toggleCamera)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
@@ -73,16 +77,18 @@ SOFTWARE.
     // TODO: implement your filters
     [array addObject:[[FCVignetteEffectFilter alloc] init]];
     [array addObject:[[FCPhotoEffectInstantFilter alloc] init]];
-    
-    _filters = [array copy];
-    [_camera.imageProcessorPipeline setFilters:_filters];
+
+    _availableFilters = [array copy];
+    _activeFilters = [NSMutableSet new];
+    [_camera.imageProcessorPipeline setFilters:@[]];
 }
 
 - (void)setCameraAPI:(FCCamera *)camera
 {
     _camera = camera;
 }
-- (IBAction)toggleFilters:(UIButton *)sender {
+- (IBAction)toggleFilters:(UIButton *)sender
+{
     _toggleFiltersBtn.transform = CGAffineTransformRotate(_toggleFiltersBtn.transform, M_PI_4);
     _filterViewEnabled = !_filterViewEnabled;
     [_filterCollectionView setHidden:!_filterViewEnabled];
@@ -163,24 +169,38 @@ SOFTWARE.
     }];
 }
 
+- (void)_toggleFilter:(FCImageProcessorFilter *)filter
+{
+    if ([_activeFilters containsObject:filter]) {
+        [_activeFilters removeObject:filter];
+    } else {
+        [_activeFilters addObject:filter];
+    }
+    [_camera.imageProcessorPipeline setFilters:_activeFilters.allObjects];
+}
+
 // UICollectionViewDataSource
 
-- (nonnull FCFilterViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    FCFilterViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FCFilterViewCell" forIndexPath:indexPath];
-    [cell applyFilter:[_filters objectAtIndex:indexPath.item]];
+- (nonnull FCFilterViewCell *)collectionView:(nonnull UICollectionView *)collectionView
+                      cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    FCFilterViewCell *cell =
+        [collectionView dequeueReusableCellWithReuseIdentifier:@"FCFilterViewCell" forIndexPath:indexPath];
+    [cell applyFilter:[_availableFilters objectAtIndex:indexPath.item]];
     return cell;
 }
 
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _filters.count;
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _availableFilters.count;
 }
-
 
 // UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    FCFilterViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FCFilterViewCell" forIndexPath:indexPath];
-    [[_filters objectAtIndex:indexPath.item] toggle];
+    FCFilterViewCell *cell =
+        [collectionView dequeueReusableCellWithReuseIdentifier:@"FCFilterViewCell" forIndexPath:indexPath];
+    [self _toggleFilter:[_availableFilters objectAtIndex:indexPath.item]];
     [cell handleTap];
 }
 
