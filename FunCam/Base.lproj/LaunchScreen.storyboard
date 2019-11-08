@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,9 +13,43 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHB-wB-fYX">
+                                <rect key="frame" x="147" y="712" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="KDc-fJ-Lk2"/>
+                                    <constraint firstAttribute="height" constant="120" id="OZU-h8-PRe"/>
+                                </constraints>
+                                <state key="normal" image="CaptureButton"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zoj-mH-oKg">
+                                <rect key="frame" x="340" y="52" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="JOZ-5j-4kE"/>
+                                    <constraint firstAttribute="width" constant="44" id="iuN-n4-qUb"/>
+                                </constraints>
+                                <state key="normal" image="ToggleSelfie"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjI-8C-nL3">
+                                <rect key="frame" x="276" y="52" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="fE4-C6-Ivh"/>
+                                    <constraint firstAttribute="width" constant="44" id="m0o-Cf-aDA"/>
+                                </constraints>
+                                <state key="normal" image="ToggleFlash-inactive"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.13889114769999999" green="0.13889114769999999" blue="0.13889114769999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="Zoj-mH-oKg" firstAttribute="leading" secondItem="CjI-8C-nL3" secondAttribute="trailing" constant="20" id="1lx-Ej-vha"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zoj-mH-oKg" secondAttribute="trailing" constant="30" id="Hev-cI-BFp"/>
+                            <constraint firstItem="NHB-wB-fYX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="In5-9P-S7g"/>
+                            <constraint firstItem="Zoj-mH-oKg" firstAttribute="centerY" secondItem="CjI-8C-nL3" secondAttribute="centerY" id="erZ-Nj-UhI"/>
+                            <constraint firstItem="Zoj-mH-oKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="hek-oR-7Xh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NHB-wB-fYX" secondAttribute="bottom" constant="30" id="jva-hk-ItU"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -22,4 +58,9 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="CaptureButton" width="100" height="100"/>
+        <image name="ToggleFlash-inactive" width="50" height="50"/>
+        <image name="ToggleSelfie" width="50" height="50"/>
+    </resources>
 </document>
