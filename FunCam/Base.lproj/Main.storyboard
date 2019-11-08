@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -56,13 +56,6 @@
                                     <action selector="toggleFlash:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AxH-5u-Eod"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYq-fh-eQM">
-                                <rect key="frame" x="276" y="751" width="43" height="43"/>
-                                <state key="normal" image="ToggleFilters"/>
-                                <connections>
-                                    <action selector="toggleFilters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XJb-Vu-Ius"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2Qq-JU-DQ5">
                                 <rect key="frame" x="34" y="664" width="346" height="54"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -106,6 +99,13 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="jwJ-Pv-lBI"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYq-fh-eQM">
+                                <rect key="frame" x="276" y="751" width="43" height="43"/>
+                                <state key="normal" image="ToggleFilters"/>
+                                <connections>
+                                    <action selector="toggleFilters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XJb-Vu-Ius"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.13889114769999999" green="0.13889114769999999" blue="0.13889114769999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -117,12 +117,9 @@
                             <constraint firstItem="JYq-fh-eQM" firstAttribute="centerX" secondItem="bXj-4J-3fb" secondAttribute="centerX" constant="-0.5" id="KeF-sG-qxK"/>
                             <constraint firstItem="2Qq-JU-DQ5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="Qi5-Gu-tuJ"/>
                             <constraint firstItem="uKO-bo-b3n" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Yzf-kC-5O3"/>
-                            <constraint firstItem="2Qq-JU-DQ5" firstAttribute="top" secondItem="uKO-bo-b3n" secondAttribute="bottom" constant="502" id="aA5-9j-CQG"/>
                             <constraint firstItem="KBW-ch-SNg" firstAttribute="leading" secondItem="bXj-4J-3fb" secondAttribute="trailing" constant="20" id="b5V-4l-NC7"/>
-                            <constraint firstItem="2Qq-JU-DQ5" firstAttribute="centerX" secondItem="Owi-TL-Hyp" secondAttribute="centerX" id="bBV-X2-OeT"/>
                             <constraint firstItem="uKO-bo-b3n" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="cvc-w0-v3U"/>
                             <constraint firstItem="uKO-bo-b3n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dFt-bC-Oyh"/>
-                            <constraint firstItem="2Qq-JU-DQ5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="fL5-nk-IBx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Owi-TL-Hyp" secondAttribute="bottom" constant="30" id="g36-Np-LYd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KBW-ch-SNg" secondAttribute="trailing" constant="30" id="sMa-Zf-OEG"/>
                             <constraint firstItem="KBW-ch-SNg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="vBq-Pa-Tv5"/>
@@ -202,7 +199,7 @@
         <image name="ToggleFilters" width="50" height="50"/>
         <image name="ToggleFlash-inactive" width="50" height="50"/>
         <image name="ToggleSelfie" width="50" height="50"/>
-        <image name="ghost" width="50" height="50"/>
+        <image name="ghost" width="20" height="20"/>
         <image name="shadow" width="375" height="75"/>
     </resources>
 </document>
