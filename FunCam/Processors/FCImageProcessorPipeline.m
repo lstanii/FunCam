@@ -23,13 +23,19 @@ SOFTWARE.
 */
 
 #import "FCImageProcessorPipeline.h"
-
+#import "FCImageOrientationHandler.h"
 #import "FCImageProcessorFilter.h"
 
 @import CoreImage;
 
 @implementation FCImageProcessorPipeline {
+    FCImageOrientationHandler *_orientationHandler;
     NSArray<FCImageProcessorFilter *> *_filters;
+}
+
+- (void)setOrientationHandler:(FCImageOrientationHandler *)orientationHandler
+{
+    _orientationHandler = orientationHandler;
 }
 
 - (void)setFilters:(NSArray<FCImageProcessorFilter *> *)filters
@@ -44,7 +50,9 @@ SOFTWARE.
 
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
-    [self _processImage:image forFilters:_filters atIndex:0 completion:completion];
+    [_orientationHandler processImage:image completion:^(CIImage *outputImage) {
+        [self _processImage:outputImage forFilters:self->_filters atIndex:0 completion:completion];
+    }];
 }
 
 - (void)_processImage:(CIImage *)image
@@ -56,10 +64,18 @@ SOFTWARE.
         completion(image);
         return;
     }
-    [filters[index] processImage:image
-                      completion:^(CIImage *outputImage) {
-                          [self _processImage:outputImage forFilters:filters atIndex:index + 1 completion:completion];
-                      }];
+    if (filters[index].enabled) {
+        [filters[index] processImage:image
+        completion:^(CIImage *outputImage) {
+            [self _processImage:outputImage forFilters:filters atIndex:index + 1 completion:completion];
+        }];
+    } else {
+        [self _processImage:image forFilters:filters atIndex:index + 1 completion:completion];
+    }
+//    [filters[index] processImage:image
+//                      completion:^(CIImage *outputImage) {
+//                          [self _processImage:outputImage forFilters:filters atIndex:index + 1 completion:completion];
+//                      }];
 }
 
 @end
