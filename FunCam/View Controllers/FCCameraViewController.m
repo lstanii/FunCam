@@ -84,7 +84,7 @@ SOFTWARE.
 
 - (IBAction)captureImage:(UIButton *)sender
 {
-    [sender setEnabled:NO];
+    [self.view setUserInteractionEnabled:NO];
     [self _animateToggle:sender];
     __weak typeof(self) weakSelf = self;
     [_camera captureImage:^(CIImage *_Nullable image) {
@@ -99,7 +99,7 @@ SOFTWARE.
             [previewViewController displayImage:image
                         imageProcessingPipeline:strongSelf->_camera.imageProcessorPipeline];
             [strongSelf presentViewController:previewViewController animated:YES completion:nil];
-            [sender setEnabled:YES];
+            [strongSelf.view setUserInteractionEnabled:YES];
         });
     }];
 }
