@@ -28,7 +28,7 @@ SOFTWARE.
 @class FCMetalProcessor;
 @class FCMetalProcessingShader;
 
-@interface FCCameraViewController : UIViewController
+@interface FCCameraViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate>
 
 #pragma mark - Public Methods
 

@@ -33,4 +33,9 @@ SOFTWARE.
     NSAssert(NO, @"Should be implemented by subclass");
 }
 
+- (void)toggle
+{
+    NSAssert(NO, @"Should be implemented by subclass");
+}
+
 @end

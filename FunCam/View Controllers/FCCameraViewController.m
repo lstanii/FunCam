@@ -26,16 +26,23 @@ SOFTWARE.
 
 #import "FCCamera.h"
 #import "FCLiveDisplayView.h"
-#import "FCTestImageProcessorFilter.h"
 #import "FCImageProcessorPipeline.h"
 #import "FCImageOrientationHandler.h"
 #import "FCPreviewViewController.h"
 #import "FCConstants.h"
+#import "FCFilterViewCell.h"
+
+#import "FCVignetteEffectFilter.h"
+#import "FCPhotoEffectInstantFilter.h"
 
 @implementation FCCameraViewController {
     FCCamera *_camera;
     __weak IBOutlet UIButton *_toggleCameraBtn;
     __weak IBOutlet UIButton *_toggleFlashBtn;
+    __weak IBOutlet UIButton *_toggleFiltersBtn;
+    __weak IBOutlet UICollectionView *_filterCollectionView;
+    NSArray<FCImageProcessorFilter *> *_filters;
+    BOOL _filterViewEnabled;
 }
 
 - (void)viewDidLoad
@@ -50,18 +57,35 @@ SOFTWARE.
     [camera setupCamera];
     [camera addSampleBufferObserver:camera.liveDisplay];
     [camera startCamera];
-    [_camera.imageProcessorPipeline setFilters:@[
-        [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size camera:_camera]
-    ]];
+    [_camera.imageProcessorPipeline setOrientationHandler:[[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size camera:_camera]];
     UITapGestureRecognizer *doubleTapGestureRecognizer =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_toggleCamera)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:doubleTapGestureRecognizer];
+    [_filterCollectionView setHidden:YES];
+    _filterCollectionView.alpha = 0.7;
+    [self _setupFilters];
+}
+
+- (void)_setupFilters
+{
+    NSMutableArray<FCImageProcessorFilter *> *array = [NSMutableArray new];
+    // TODO: implement your filters
+    [array addObject:[[FCVignetteEffectFilter alloc] init]];
+    [array addObject:[[FCPhotoEffectInstantFilter alloc] init]];
+    
+    _filters = [array copy];
+    [_camera.imageProcessorPipeline setFilters:_filters];
 }
 
 - (void)setCameraAPI:(FCCamera *)camera
 {
     _camera = camera;
+}
+- (IBAction)toggleFilters:(UIButton *)sender {
+    _toggleFiltersBtn.transform = CGAffineTransformRotate(_toggleFiltersBtn.transform, M_PI_4);
+    _filterViewEnabled = !_filterViewEnabled;
+    [_filterCollectionView setHidden:!_filterViewEnabled];
 }
 
 - (IBAction)toggleFlash:(UIButton *)sender
@@ -137,6 +161,27 @@ SOFTWARE.
             [self->_toggleFlashBtn setHidden:!self->_camera.isFlashSupported];
         });
     }];
+}
+
+// UICollectionViewDataSource
+
+- (nonnull FCFilterViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    FCFilterViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FCFilterViewCell" forIndexPath:indexPath];
+    [cell applyFilter:[_filters objectAtIndex:indexPath.item]];
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _filters.count;
+}
+
+
+// UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    FCFilterViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FCFilterViewCell" forIndexPath:indexPath];
+    [[_filters objectAtIndex:indexPath.item] toggle];
+    [cell handleTap];
 }
 
 @end

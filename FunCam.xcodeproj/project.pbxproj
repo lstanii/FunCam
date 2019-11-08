@@ -21,8 +21,10 @@
 		8D8675282373C12400A5F96D /* FCPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86751E2373C12400A5F96D /* FCPreviewViewController.m */; };
 		8D86752F2374010D00A5F96D /* FCLiveDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86752E2374010D00A5F96D /* FCLiveDisplayView.m */; };
 		8D8675342374062000A5F96D /* FCCameraSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8675332374062000A5F96D /* FCCameraSession.m */; };
-		8D86753E2374E12500A5F96D /* FCTestImageProcessorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D86753D2374E12500A5F96D /* FCTestImageProcessorFilter.m */; };
 		8D8675422374F3A600A5F96D /* FCImageOrientationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8675412374F3A600A5F96D /* FCImageOrientationHandler.m */; };
+		910B99BF2375F8070039EBD0 /* FCFilterViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 910B99BD2375F8070039EBD0 /* FCFilterViewCell.m */; };
+		910B99C323760BF40039EBD0 /* FCVignetteEffectFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 910B99C223760BF40039EBD0 /* FCVignetteEffectFilter.m */; };
+		910B99C623760C080039EBD0 /* FCPhotoEffectInstantFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 910B99C523760C080039EBD0 /* FCPhotoEffectInstantFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,11 +56,15 @@
 		8D8675312374026E00A5F96D /* FCSampleBufferObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCSampleBufferObserver.h; sourceTree = "<group>"; };
 		8D8675322374062000A5F96D /* FCCameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCCameraSession.h; sourceTree = "<group>"; };
 		8D8675332374062000A5F96D /* FCCameraSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCCameraSession.m; sourceTree = "<group>"; };
-		8D86753C2374E12400A5F96D /* FCTestImageProcessorFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCTestImageProcessorFilter.h; sourceTree = "<group>"; };
-		8D86753D2374E12500A5F96D /* FCTestImageProcessorFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCTestImageProcessorFilter.m; sourceTree = "<group>"; };
 		8D86753F2374E67300A5F96D /* FCNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FCNotification.h; path = FunCam/Processors/FCNotification.h; sourceTree = SOURCE_ROOT; };
 		8D8675402374F3A600A5F96D /* FCImageOrientationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCImageOrientationHandler.h; sourceTree = "<group>"; };
 		8D8675412374F3A600A5F96D /* FCImageOrientationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCImageOrientationHandler.m; sourceTree = "<group>"; };
+		910B99BD2375F8070039EBD0 /* FCFilterViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCFilterViewCell.m; sourceTree = "<group>"; };
+		910B99BE2375F8070039EBD0 /* FCFilterViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCFilterViewCell.h; sourceTree = "<group>"; };
+		910B99C123760BF40039EBD0 /* FCVignetteEffectFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCVignetteEffectFilter.h; sourceTree = "<group>"; };
+		910B99C223760BF40039EBD0 /* FCVignetteEffectFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCVignetteEffectFilter.m; sourceTree = "<group>"; };
+		910B99C423760C080039EBD0 /* FCPhotoEffectInstantFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCPhotoEffectInstantFilter.h; sourceTree = "<group>"; };
+		910B99C523760C080039EBD0 /* FCPhotoEffectInstantFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FCPhotoEffectInstantFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +97,7 @@
 		8D8674DD2373B2AB00A5F96D /* FunCam */ = {
 			isa = PBXGroup;
 			children = (
+				910B99C023760BC10039EBD0 /* Filters */,
 				8D86753823740DAE00A5F96D /* Utils */,
 				8D8675302374022900A5F96D /* Protocols */,
 				8D86752C2374010D00A5F96D /* Views */,
@@ -146,8 +153,6 @@
 				8D86751A2373C12300A5F96D /* FCImageProcessorPipeline.m */,
 				8D8675182373C12300A5F96D /* FCMediaExporter.h */,
 				8D86751B2373C12400A5F96D /* FCMediaExporter.m */,
-				8D86753C2374E12400A5F96D /* FCTestImageProcessorFilter.h */,
-				8D86753D2374E12500A5F96D /* FCTestImageProcessorFilter.m */,
 				8D8675402374F3A600A5F96D /* FCImageOrientationHandler.h */,
 				8D8675412374F3A600A5F96D /* FCImageOrientationHandler.m */,
 			);
@@ -168,6 +173,8 @@
 		8D86752C2374010D00A5F96D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				910B99BE2375F8070039EBD0 /* FCFilterViewCell.h */,
+				910B99BD2375F8070039EBD0 /* FCFilterViewCell.m */,
 				8D86752D2374010D00A5F96D /* FCLiveDisplayView.h */,
 				8D86752E2374010D00A5F96D /* FCLiveDisplayView.m */,
 			);
@@ -189,6 +196,17 @@
 				8D6A576C2375347900079EEE /* FCConstants.h */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		910B99C023760BC10039EBD0 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				910B99C123760BF40039EBD0 /* FCVignetteEffectFilter.h */,
+				910B99C223760BF40039EBD0 /* FCVignetteEffectFilter.m */,
+				910B99C423760C080039EBD0 /* FCPhotoEffectInstantFilter.h */,
+				910B99C523760C080039EBD0 /* FCPhotoEffectInstantFilter.m */,
+			);
+			path = Filters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +280,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D86752F2374010D00A5F96D /* FCLiveDisplayView.m in Sources */,
-				8D86753E2374E12500A5F96D /* FCTestImageProcessorFilter.m in Sources */,
 				8D8674F12373B2B300A5F96D /* main.m in Sources */,
 				8D8675282373C12400A5F96D /* FCPreviewViewController.m in Sources */,
 				8D8675252373C12400A5F96D /* FCImageProcessorPipeline.m in Sources */,
@@ -271,9 +288,12 @@
 				8D8675262373C12400A5F96D /* FCMediaExporter.m in Sources */,
 				8D8675272373C12400A5F96D /* FCCameraViewController.m in Sources */,
 				8D8675242373C12400A5F96D /* FCImageProcessorFilter.m in Sources */,
+				910B99BF2375F8070039EBD0 /* FCFilterViewCell.m in Sources */,
+				910B99C323760BF40039EBD0 /* FCVignetteEffectFilter.m in Sources */,
 				8D8675422374F3A600A5F96D /* FCImageOrientationHandler.m in Sources */,
 				8D8675212373C12400A5F96D /* FCCamera.m in Sources */,
 				8D8675222373C12400A5F96D /* AppDelegate.m in Sources */,
+				910B99C623760C080039EBD0 /* FCPhotoEffectInstantFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,6 +28,7 @@ SOFTWARE.
 #import <CoreMedia/CoreMedia.h>
 
 @class FCImageProcessorFilter;
+@class FCImageOrientationHandler;
 @class CIImage;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -36,7 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion;
 
+- (void)setOrientationHandler:(FCImageOrientationHandler *)orientationHandler;
+
 - (void)setFilters:(NSArray<FCImageProcessorFilter *> *)filters;
+
 - (NSArray<FCImageProcessorFilter *> *)filters;
 
 @end
