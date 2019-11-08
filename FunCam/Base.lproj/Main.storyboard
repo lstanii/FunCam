@@ -22,7 +22,7 @@
                                     <constraint firstAttribute="height" constant="162" id="4aX-fW-pJZ"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Owi-TL-Hyp">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Owi-TL-Hyp">
                                 <rect key="frame" x="147" y="712" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="Gyx-RX-nzf"/>
@@ -33,7 +33,7 @@
                                     <action selector="captureImage:" destination="BYZ-38-t0r" eventType="touchDown" id="GES-hN-dwE"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBW-ch-SNg">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBW-ch-SNg">
                                 <rect key="frame" x="340" y="52" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="CVh-YS-FOq"/>
@@ -44,7 +44,7 @@
                                     <action selector="toggleCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wrg-hQ-L2n"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXj-4J-3fb">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXj-4J-3fb">
                                 <rect key="frame" x="276" y="52" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="knM-Mv-xu5"/>

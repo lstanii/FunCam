@@ -53,7 +53,8 @@ SOFTWARE.
     [_camera.imageProcessorPipeline setFilters:@[
         [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size camera:_camera]
     ]];
-    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_toggleCamera)];
+    UITapGestureRecognizer *doubleTapGestureRecognizer =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_toggleCamera)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:doubleTapGestureRecognizer];
 }
@@ -81,9 +82,10 @@ SOFTWARE.
     [self _toggleCamera];
 }
 
-- (IBAction)captureImage:(id)sender
+- (IBAction)captureImage:(UIButton *)sender
 {
-
+    [sender setEnabled:NO];
+    [self _animateToggle:sender];
     __weak typeof(self) weakSelf = self;
     [_camera captureImage:^(CIImage *_Nullable image) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -97,6 +99,7 @@ SOFTWARE.
             [previewViewController displayImage:image
                         imageProcessingPipeline:strongSelf->_camera.imageProcessorPipeline];
             [strongSelf presentViewController:previewViewController animated:YES completion:nil];
+            [sender setEnabled:YES];
         });
     }];
 }
@@ -104,15 +107,15 @@ SOFTWARE.
 - (void)_animateToggle:(UIView *)view
 {
     CGAffineTransform currentTransform = view.transform;
-    [UIView animateWithDuration:0.15
+    [UIView animateWithDuration:0.2
         animations:^{
-            view.transform = CGAffineTransformScale(currentTransform, 1.5, 1.5);
+            view.transform = CGAffineTransformScale(currentTransform, 1.75, 1.75);
         }
         completion:^(BOOL finished) {
             if (!finished) {
                 view.transform = currentTransform;
             } else {
-                [UIView animateWithDuration:0.15
+                [UIView animateWithDuration:0.2
                     animations:^{
                         view.transform = currentTransform;
                     }

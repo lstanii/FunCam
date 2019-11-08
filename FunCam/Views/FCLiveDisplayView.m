@@ -85,6 +85,7 @@ SOFTWARE.
 - (void)_didEnterBackground
 {
     [_videoPreviewView deleteDrawable];
+    [_videoPreviewView setHidden:YES];
 }
 
 - (void)layoutSubviews
@@ -112,7 +113,11 @@ SOFTWARE.
     [self.camera.imageProcessorPipeline
         processImage:sourceImage
           completion:^(CIImage *outputImage) {
-
+              dispatch_async(dispatch_get_main_queue(), ^{
+                  if (self->_videoPreviewView.isHidden) {
+                      [self->_videoPreviewView setHidden:NO];
+                  }
+              });
               // Resize the image to the view
               CGRect extent = outputImage.extent;
               CGFloat previewAspect =
