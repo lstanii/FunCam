@@ -25,9 +25,11 @@ SOFTWARE.
 #import "FCPreviewViewController.h"
 #import "FCMediaExporter.h"
 #import "FCImageProcessorPipeline.h"
+#import "UIImage+CIImage.h"
 
 @implementation FCPreviewViewController {
-    UIImage *_image;
+    CIImage *_image;
+    UIImage *_uiImage;
     FCImageProcessorPipeline *_imageProcessingPipeline;
     FCMediaExporter *_mediaExporter;
     __weak IBOutlet UIImageView *_imageView;
@@ -43,11 +45,13 @@ SOFTWARE.
 
 #pragma mark - Public Methods
 
-- (void)displayImage:(UIImage *)image imageProcessingPipeline:(FCImageProcessorPipeline *)imageProcessingPipeline
+- (void)displayImage:(CIImage *)image imageProcessingPipeline:(FCImageProcessorPipeline *)imageProcessingPipeline
 {
-    _imageProcessingPipeline = imageProcessingPipeline;
+    // Load the view if not loaded
+    [self view];
     _image = image;
-    
+    _imageProcessingPipeline = imageProcessingPipeline;
+    [self _processPipeline];
 }
 
 #pragma mark - Actions
@@ -57,8 +61,10 @@ SOFTWARE.
     [self _dismiss];
 }
 
-- (IBAction)saveImage:(id)sender {
-    [self _saveToCameraRoll];
+- (IBAction)saveImage:(UIButton *)sender
+{
+    [sender setEnabled:NO];
+    [self _saveToCameraRoll:nil];
     [self _dismiss];
 }
 
@@ -69,10 +75,20 @@ SOFTWARE.
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)_saveToCameraRoll {
-    [_mediaExporter saveImageToCameraRoll:_image completion:^{
-        
-    }];
+- (void)_processPipeline
+{
+    [_imageProcessingPipeline processImage:_image
+                               completion:^(CIImage *outputImage) {
+                                   UIImage *uiImage = [UIImage getImageFromCIImage:outputImage];
+                                   self->_uiImage = uiImage;
+                                   self->_imageView.image = uiImage;
+                               }];
+}
+
+- (void)_saveToCameraRoll:(dispatch_block_t)completion
+{
+    [_mediaExporter saveImageToCameraRoll:_uiImage
+                               completion:completion];
 }
 
 @end

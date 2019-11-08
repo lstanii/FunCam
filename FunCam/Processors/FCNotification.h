@@ -24,5 +24,5 @@ SOFTWARE.
 
 #import <Foundation/Foundation.h>
 
-static NSString *FCNotificationDevicePositionDidChange = @"com.fun.camera.device.position.did.change";
-static NSString *FCNotificationFlashEnabledDidChange = @"com.fun.camera.flash.enabled.did.change";
+static NSString *const FCNotificationDevicePositionDidChange = @"com.fun.camera.device.position.did.change";
+static NSString *const FCNotificationFlashEnabledDidChange = @"com.fun.camera.flash.enabled.did.change";

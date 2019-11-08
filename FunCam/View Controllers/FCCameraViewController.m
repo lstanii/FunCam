@@ -29,10 +29,12 @@ SOFTWARE.
 #import "FCTestImageProcessorFilter.h"
 #import "FCImageProcessorPipeline.h"
 #import "FCImageOrientationHandler.h"
-#import "UIImage+CIImage.h"
+#import "FCPreviewViewController.h"
+#import "FCConstants.h"
 
 @implementation FCCameraViewController {
     FCCamera *_camera;
+    __weak IBOutlet UIButton *_toggleCameraBtn;
 }
 
 - (void)viewDidLoad
@@ -50,6 +52,9 @@ SOFTWARE.
     [_camera.imageProcessorPipeline setFilters:@[
         [[FCImageOrientationHandler alloc] initWithAspectSize:_camera.liveDisplay.bounds.size camera:_camera]
     ]];
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_toggleCamera)];
+    doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:doubleTapGestureRecognizer];
 }
 
 - (void)setCameraAPI:(FCCamera *)camera
@@ -60,6 +65,7 @@ SOFTWARE.
 - (IBAction)toggleFlash:(UIButton *)sender
 {
     [sender setEnabled:NO];
+    [self _animateToggle:sender];
     [_camera toggleFlash:^{
         NSString *imageName = self->_camera.isFlashEnabled ? @"ToggleFlash-active" : @"ToggleFlash-inactive";
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -71,23 +77,59 @@ SOFTWARE.
 
 - (IBAction)toggleCamera:(UIButton *)sender
 {
-    [sender setEnabled:NO];
-    [_camera toggleCamera:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [sender setEnabled:YES];
-        });
-    }];
+    [self _toggleCamera];
 }
 
 - (IBAction)captureImage:(id)sender
 {
 
+    __weak typeof(self) weakSelf = self;
     [_camera captureImage:^(CIImage *_Nullable image) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) {
+                return;
+            }
+            FCPreviewViewController *previewViewController =
+                [strongSelf.storyboard instantiateViewControllerWithIdentifier:FCPreviewViewControllerStoryBoardKey];
+            previewViewController.modalPresentationStyle = UIModalPresentationPopover;
+            [previewViewController displayImage:image
+                        imageProcessingPipeline:strongSelf->_camera.imageProcessorPipeline];
+            [strongSelf presentViewController:previewViewController animated:YES completion:nil];
+        });
+    }];
+}
 
-        [self->_camera.imageProcessorPipeline processImage:image
-                                                completion:^(CIImage *outputImage) {
-                                                    UIImage *uiImage = [UIImage getImageFromCIImage:outputImage];
-                                                }];
+- (void)_animateToggle:(UIView *)view
+{
+    CGAffineTransform currentTransform = view.transform;
+    [UIView animateWithDuration:0.15
+        animations:^{
+            view.transform = CGAffineTransformScale(currentTransform, 1.5, 1.5);
+        }
+        completion:^(BOOL finished) {
+            if (!finished) {
+                view.transform = currentTransform;
+            } else {
+                [UIView animateWithDuration:0.15
+                    animations:^{
+                        view.transform = currentTransform;
+                    }
+                    completion:^(BOOL finished) {
+                        view.transform = currentTransform;
+                    }];
+            }
+        }];
+}
+
+- (void)_toggleCamera
+{
+    [_toggleCameraBtn setEnabled:NO];
+    [self _animateToggle:_toggleCameraBtn];
+    [_camera toggleCamera:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->_toggleCameraBtn setEnabled:YES];
+        });
     }];
 }
 

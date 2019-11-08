@@ -22,18 +22,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import <UIKit/UIKit.h>
-
-@class FCImageProcessorPipeline;
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface FCPreviewViewController : UIViewController
-
-#pragma mark - Public Methods
-
-- (void)displayImage:(CIImage *)image imageProcessingPipeline:(FCImageProcessorPipeline *)imageProcessingPipeline;
-
-@end
-
-NS_ASSUME_NONNULL_END
+static NSString *const FCPreviewViewControllerStoryBoardKey = @"preview-view-controller";

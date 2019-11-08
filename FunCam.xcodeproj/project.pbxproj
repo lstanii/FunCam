@@ -26,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D6A576C2375347900079EEE /* FCConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FCConstants.h; path = FunCam/Processors/FCConstants.h; sourceTree = SOURCE_ROOT; };
 		8D8674DB2373B2AB00A5F96D /* FunCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8674E82373B2AC00A5F96D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D8674EA2373B2B300A5F96D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -185,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				8D86753F2374E67300A5F96D /* FCNotification.h */,
+				8D6A576C2375347900079EEE /* FCConstants.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

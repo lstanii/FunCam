@@ -70,6 +70,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="_toggleCameraBtn" destination="KBW-ch-SNg" id="JOU-72-8OM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -78,7 +81,7 @@
         <!--Preview View Controller-->
         <scene sceneID="yS1-9x-6sV">
             <objects>
-                <viewController id="T6W-WQ-bzo" customClass="FCPreviewViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="preview-view-controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="T6W-WQ-bzo" customClass="FCPreviewViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WbQ-iX-jXX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -92,6 +95,9 @@
                                 <state key="normal" title="Save Image">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveImage:" destination="T6W-WQ-bzo" eventType="touchUpInside" id="DOb-Fx-zHA"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kna-in-Df4">
                                 <rect key="frame" x="0.0" y="804" width="207" height="38"/>
@@ -99,6 +105,9 @@
                                 <state key="normal" title="Retake">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="close:" destination="T6W-WQ-bzo" eventType="touchUpInside" id="71Z-rO-tQA"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.13889114769999999" green="0.13889114769999999" blue="0.13889114769999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -116,6 +125,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="s3W-go-7dz"/>
                     </view>
+                    <connections>
+                        <outlet property="_imageView" destination="5nq-X7-Q1U" id="qQT-FW-eAQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FUP-Uw-8I6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
