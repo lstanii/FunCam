@@ -25,9 +25,14 @@ SOFTWARE.
 #import "FCPreviewViewController.h"
 #import "FCMediaExporter.h"
 #import "FCImageProcessorPipeline.h"
+#import "FCFilterCollectionViewController.h"
 #import "UIImage+CIImage.h"
 
+@interface FCPreviewViewController () <FCFilterCollectionViewControllerDelegate>
+@end
+
 @implementation FCPreviewViewController {
+    __weak IBOutlet UIView *_filterCollectionViewContainer;
     CIImage *_image;
     UIImage *_uiImage;
     FCImageProcessorPipeline *_imageProcessingPipeline;
@@ -45,13 +50,36 @@ SOFTWARE.
 
 #pragma mark - Public Methods
 
-- (void)displayImage:(CIImage *)image imageProcessingPipeline:(FCImageProcessorPipeline *)imageProcessingPipeline
+- (void)displayImage:(CIImage *)image
+    imageProcessingPipeline:(FCImageProcessorPipeline *)imageProcessingPipeline
+           availableFilters:(NSArray<FCImageProcessorFilter *> *)availableFilters
+              activeFilters:(NSArray<FCImageProcessorFilter *> *)activeFilters
 {
     // Load the view if not loaded
     [self view];
     _image = image;
     _imageProcessingPipeline = imageProcessingPipeline;
     [self _processPipeline];
+
+    // Set up collection view controller
+
+    UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
+    flowLayout.minimumInteritemSpacing = 0;
+    FCFilterCollectionViewController *viewController =
+        [[FCFilterCollectionViewController alloc] initWithCollectionViewLayout:flowLayout];
+    viewController.filterCollectionViewControllerDelegate = self;
+    viewController.availableFilters = availableFilters;
+    viewController.activeFilters = activeFilters;
+    viewController.imageProcessorPipeline = imageProcessingPipeline;
+
+    // Attach collection view controller
+
+    [self addChildViewController:viewController];
+    viewController.view.frame = _filterCollectionViewContainer.bounds;
+    [_filterCollectionViewContainer addSubview:viewController.view];
+    _filterCollectionViewContainer.backgroundColor = [UIColor clearColor];
+    [viewController didMoveToParentViewController:self];
+    [_filterCollectionViewContainer setHidden:YES];
 }
 
 #pragma mark - Actions
@@ -68,11 +96,29 @@ SOFTWARE.
     [self _dismiss];
 }
 
+- (IBAction)toggleFilters:(UIButton *)sender
+{
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         sender.transform = CGAffineTransformRotate(sender.transform, M_PI_4);
+                     }];
+    [_filterCollectionViewContainer setHidden:!_filterCollectionViewContainer.hidden];
+}
+
+#pragma mark - FCFilterCollectionViewControllerDelegate
+
+- (void)filterCollectionViewControllerDidUpdate:(FCFilterCollectionViewController *)filterCollectionViewController
+{
+    [self _processPipeline];
+}
+
 #pragma mark - Private Methods
 
 - (void)_dismiss
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    // Clear all filters from pipline
+    [_imageProcessingPipeline setFilters:@[]];
 }
 
 - (void)_processPipeline

@@ -47,7 +47,7 @@ SOFTWARE.
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([FCFilterViewCell class]) bundle:nil]
           forCellWithReuseIdentifier:FCFilterCollectionViewCellReuseID];
 
-    _activeFilters = [NSMutableSet new];
+    _activeFilters = _activeFilters ?: [NSMutableSet new];
 }
 
 - (void)_toggleFilter:(FCImageProcessorFilter *)filter
@@ -57,6 +57,22 @@ SOFTWARE.
     } else {
         [_activeFilters addObject:filter];
     }
+    [self resume];
+}
+
+- (NSArray<FCImageProcessorFilter *> *)activeFilters
+{
+    return _activeFilters.allObjects;
+}
+
+- (void)setActiveFilters:(NSArray<FCImageProcessorFilter *> *)activeFilters
+{
+    _activeFilters = [NSMutableSet setWithArray:activeFilters];
+    [self.collectionView reloadData];
+}
+
+- (void)resume
+{
     [self.imageProcessorPipeline setFilters:_activeFilters.allObjects];
 }
 
@@ -83,7 +99,8 @@ SOFTWARE.
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self _toggleFilter:[_availableFilters objectAtIndex:indexPath.item]];
-    [collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    [collectionView reloadItemsAtIndexPaths:@[ indexPath ]];
+    [self.filterCollectionViewControllerDelegate filterCollectionViewControllerDidUpdate:self];
 }
 
 // UICollectionViewDelegateFlowLayout

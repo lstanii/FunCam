@@ -26,13 +26,25 @@ SOFTWARE.
 
 @class FCImageProcessorFilter;
 @class FCImageProcessorPipeline;
+@class FCFilterCollectionViewController;
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol FCFilterCollectionViewControllerDelegate <NSObject>
+
+- (void)filterCollectionViewControllerDidUpdate:(FCFilterCollectionViewController *)filterCollectionViewController;
+
+@end
 
 @interface FCFilterCollectionViewController : UICollectionViewController
 
 @property (nonatomic, strong, readwrite) NSArray<FCImageProcessorFilter *> *availableFilters;
+@property (nonatomic, strong, readwrite) NSArray<FCImageProcessorFilter *> *activeFilters;
 @property (nonatomic, nonnull, readwrite) FCImageProcessorPipeline *imageProcessorPipeline;
+
+@property (nonatomic, weak, nullable) id<FCFilterCollectionViewControllerDelegate> filterCollectionViewControllerDelegate;
+
+- (void)resume;
 
 @end
 

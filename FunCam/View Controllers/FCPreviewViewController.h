@@ -25,6 +25,7 @@ SOFTWARE.
 #import <UIKit/UIKit.h>
 
 @class FCImageProcessorPipeline;
+@class FCImageProcessorFilter;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,7 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Public Methods
 
-- (void)displayImage:(CIImage *)image imageProcessingPipeline:(FCImageProcessorPipeline *)imageProcessingPipeline;
+- (void)displayImage:(CIImage *)image
+    imageProcessingPipeline:(FCImageProcessorPipeline *)imageProcessingPipeline
+           availableFilters:(NSArray<FCImageProcessorFilter *> *)availableFilters
+              activeFilters:(NSArray<FCImageProcessorFilter *> *)activeFilters;
 
 @end
 

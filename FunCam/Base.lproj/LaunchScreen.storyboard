@@ -40,6 +40,10 @@
                                 </constraints>
                                 <state key="normal" image="ToggleFlash-inactive"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j2o-Xl-GOr">
+                                <rect key="frame" x="279.5" y="753.5" width="37.5" height="37.5"/>
+                                <state key="normal" image="toggleFilters"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.13889114769999999" green="0.13889114769999999" blue="0.13889114769999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -48,7 +52,9 @@
                             <constraint firstItem="NHB-wB-fYX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="In5-9P-S7g"/>
                             <constraint firstItem="Zoj-mH-oKg" firstAttribute="centerY" secondItem="CjI-8C-nL3" secondAttribute="centerY" id="erZ-Nj-UhI"/>
                             <constraint firstItem="Zoj-mH-oKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="hek-oR-7Xh"/>
+                            <constraint firstItem="j2o-Xl-GOr" firstAttribute="centerY" secondItem="NHB-wB-fYX" secondAttribute="centerY" id="jRj-RX-1sN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NHB-wB-fYX" secondAttribute="bottom" constant="30" id="jva-hk-ItU"/>
+                            <constraint firstItem="j2o-Xl-GOr" firstAttribute="centerX" secondItem="CjI-8C-nL3" secondAttribute="centerX" id="xA6-Jz-xAS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -62,5 +68,6 @@
         <image name="CaptureButton" width="100" height="100"/>
         <image name="ToggleFlash-inactive" width="50" height="50"/>
         <image name="ToggleSelfie" width="50" height="50"/>
+        <image name="toggleFilters" width="37.5" height="37.5"/>
     </resources>
 </document>

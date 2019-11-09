@@ -38,9 +38,8 @@ SOFTWARE.
     FCCamera *_camera;
     __weak IBOutlet UIButton *_toggleCameraBtn;
     __weak IBOutlet UIButton *_toggleFlashBtn;
-    __weak IBOutlet UIButton *_toggleFiltersBtn;
     __weak IBOutlet UIView *_filterCollectionViewContainer;
-    BOOL _filterViewEnabled;
+    FCFilterCollectionViewController *_filterCollectionViewController;
 }
 
 - (void)viewDidLoad
@@ -67,6 +66,12 @@ SOFTWARE.
     [self _setupFilters];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_filterCollectionViewController resume];
+}
+
 - (void)_setupFilters
 {
     NSMutableArray<FCImageProcessorFilter *> *array = [NSMutableArray new];
@@ -85,6 +90,7 @@ SOFTWARE.
         [[FCFilterCollectionViewController alloc] initWithCollectionViewLayout:flowLayout];
     viewController.availableFilters = availableFilters;
     viewController.imageProcessorPipeline = _camera.imageProcessorPipeline;
+    _filterCollectionViewController = viewController;
 
     // Attach collection view controller
 
@@ -102,9 +108,11 @@ SOFTWARE.
 
 - (IBAction)toggleFilters:(UIButton *)sender
 {
-    _toggleFiltersBtn.transform = CGAffineTransformRotate(_toggleFiltersBtn.transform, M_PI_4);
-    _filterViewEnabled = !_filterViewEnabled;
-    [_filterCollectionViewContainer setHidden:!_filterViewEnabled];
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         sender.transform = CGAffineTransformRotate(sender.transform, M_PI_4);
+                     }];
+    [_filterCollectionViewContainer setHidden:!_filterCollectionViewContainer.hidden];
 }
 
 - (IBAction)toggleFlash:(UIButton *)sender
@@ -141,7 +149,9 @@ SOFTWARE.
                 [strongSelf.storyboard instantiateViewControllerWithIdentifier:FCPreviewViewControllerStoryBoardKey];
             previewViewController.modalPresentationStyle = UIModalPresentationPopover;
             [previewViewController displayImage:image
-                        imageProcessingPipeline:strongSelf->_camera.imageProcessorPipeline];
+                        imageProcessingPipeline:strongSelf->_camera.imageProcessorPipeline
+                               availableFilters:strongSelf->_filterCollectionViewController.availableFilters
+                                  activeFilters:strongSelf->_filterCollectionViewController.activeFilters];
             [strongSelf presentViewController:previewViewController animated:YES completion:nil];
             [strongSelf.view setUserInteractionEnabled:YES];
         });

@@ -56,8 +56,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYq-fh-eQM">
-                                <rect key="frame" x="272.5" y="747" width="50" height="50"/>
-                                <state key="normal" image="ToggleFilters"/>
+                                <rect key="frame" x="279.5" y="753.5" width="37.5" height="37.5"/>
+                                <state key="normal" image="toggleFilters"/>
                                 <connections>
                                     <action selector="toggleFilters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XJb-Vu-Ius"/>
                                 </connections>
@@ -76,7 +76,7 @@
                             <constraint firstItem="bXj-4J-3fb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="2f4-W7-YiI"/>
                             <constraint firstAttribute="bottom" secondItem="Ius-KQ-op7" secondAttribute="bottom" constant="178" id="5Pe-lJ-Dmt"/>
                             <constraint firstItem="Ius-KQ-op7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="FDT-Q9-MqD"/>
-                            <constraint firstItem="JYq-fh-eQM" firstAttribute="centerX" secondItem="bXj-4J-3fb" secondAttribute="centerX" constant="-0.5" id="KeF-sG-qxK"/>
+                            <constraint firstItem="JYq-fh-eQM" firstAttribute="centerX" secondItem="bXj-4J-3fb" secondAttribute="centerX" id="KeF-sG-qxK"/>
                             <constraint firstItem="uKO-bo-b3n" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Yzf-kC-5O3"/>
                             <constraint firstItem="KBW-ch-SNg" firstAttribute="leading" secondItem="bXj-4J-3fb" secondAttribute="trailing" constant="20" id="b5V-4l-NC7"/>
                             <constraint firstItem="uKO-bo-b3n" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="cvc-w0-v3U"/>
@@ -92,7 +92,6 @@
                     <connections>
                         <outlet property="_filterCollectionViewContainer" destination="Ius-KQ-op7" id="Sof-UW-qdW"/>
                         <outlet property="_toggleCameraBtn" destination="KBW-ch-SNg" id="JOU-72-8OM"/>
-                        <outlet property="_toggleFiltersBtn" destination="JYq-fh-eQM" id="JHK-i6-bbd"/>
                         <outlet property="_toggleFlashBtn" destination="bXj-4J-3fb" id="byL-De-cKw"/>
                     </connections>
                 </viewController>
@@ -112,7 +111,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="784"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pWT-hH-oor">
-                                <rect key="frame" x="207" y="804" width="207" height="38"/>
+                                <rect key="frame" x="168.5" y="804" width="168" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Save Image">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -122,7 +121,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kna-in-Df4">
-                                <rect key="frame" x="0.0" y="804" width="207" height="38"/>
+                                <rect key="frame" x="0.0" y="804" width="168.5" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Retake">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -131,23 +130,44 @@
                                     <action selector="close:" destination="T6W-WQ-bzo" eventType="touchUpInside" id="71Z-rO-tQA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="top-E6-cAD">
+                                <rect key="frame" x="356.5" y="804.5" width="37.5" height="37.5"/>
+                                <state key="normal" image="toggleFilters"/>
+                                <connections>
+                                    <action selector="toggleFilters:" destination="T6W-WQ-bzo" eventType="touchUpInside" id="dhW-Rh-Xxe"/>
+                                    <action selector="toggleFilters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="exD-i3-u4O"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LM6-f2-SXg">
+                                <rect key="frame" x="0.0" y="730" width="414" height="54"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="a7s-Us-hif"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.13889114769999999" green="0.13889114769999999" blue="0.13889114769999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="pWT-hH-oor" firstAttribute="centerY" secondItem="kna-in-Df4" secondAttribute="centerY" id="8hD-zR-GFe"/>
                             <constraint firstItem="5nq-X7-Q1U" firstAttribute="top" secondItem="WbQ-iX-jXX" secondAttribute="top" id="FkX-NC-To6"/>
+                            <constraint firstItem="top-E6-cAD" firstAttribute="leading" secondItem="pWT-hH-oor" secondAttribute="trailing" constant="20" id="G1j-fC-LrV"/>
                             <constraint firstItem="pWT-hH-oor" firstAttribute="top" secondItem="5nq-X7-Q1U" secondAttribute="bottom" constant="20" id="GeA-Sw-zAh"/>
+                            <constraint firstItem="s3W-go-7dz" firstAttribute="trailing" secondItem="top-E6-cAD" secondAttribute="trailing" constant="20" id="IQM-GH-ZLH"/>
+                            <constraint firstItem="LM6-f2-SXg" firstAttribute="bottom" secondItem="5nq-X7-Q1U" secondAttribute="bottom" id="MnF-Ju-QF4"/>
                             <constraint firstItem="s3W-go-7dz" firstAttribute="trailing" secondItem="5nq-X7-Q1U" secondAttribute="trailing" id="Mtj-53-QoG"/>
+                            <constraint firstItem="top-E6-cAD" firstAttribute="centerY" secondItem="pWT-hH-oor" secondAttribute="centerY" id="PKB-fl-Oa5"/>
                             <constraint firstItem="pWT-hH-oor" firstAttribute="leading" secondItem="kna-in-Df4" secondAttribute="trailing" id="TJB-qr-8py"/>
                             <constraint firstItem="5nq-X7-Q1U" firstAttribute="leading" secondItem="s3W-go-7dz" secondAttribute="leading" id="ZrA-O2-uhJ"/>
+                            <constraint firstItem="s3W-go-7dz" firstAttribute="trailing" secondItem="LM6-f2-SXg" secondAttribute="trailing" id="fL4-6k-BEc"/>
                             <constraint firstItem="s3W-go-7dz" firstAttribute="bottom" secondItem="pWT-hH-oor" secondAttribute="bottom" constant="20" id="lTz-jv-kXY"/>
                             <constraint firstItem="pWT-hH-oor" firstAttribute="width" secondItem="kna-in-Df4" secondAttribute="width" id="q42-1b-MLD"/>
-                            <constraint firstItem="s3W-go-7dz" firstAttribute="trailing" secondItem="pWT-hH-oor" secondAttribute="trailing" id="s3v-Lv-1E1"/>
+                            <constraint firstItem="LM6-f2-SXg" firstAttribute="leading" secondItem="s3W-go-7dz" secondAttribute="leading" id="qvH-rA-Ku7"/>
                             <constraint firstItem="kna-in-Df4" firstAttribute="leading" secondItem="s3W-go-7dz" secondAttribute="leading" id="wIz-ly-ZGi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="s3W-go-7dz"/>
                     </view>
                     <connections>
+                        <outlet property="_filterCollectionViewContainer" destination="LM6-f2-SXg" id="LGK-SW-DaS"/>
                         <outlet property="_imageView" destination="5nq-X7-Q1U" id="qQT-FW-eAQ"/>
                     </connections>
                 </viewController>
@@ -158,9 +178,9 @@
     </scenes>
     <resources>
         <image name="CaptureButton" width="100" height="100"/>
-        <image name="ToggleFilters" width="50" height="50"/>
         <image name="ToggleFlash-inactive" width="50" height="50"/>
         <image name="ToggleSelfie" width="50" height="50"/>
         <image name="shadow" width="375" height="75"/>
+        <image name="toggleFilters" width="37.5" height="37.5"/>
     </resources>
 </document>
