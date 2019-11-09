@@ -22,5 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#pragma mark - Storyboard Identifiers
+
 static NSString *const FCFilterCollectionViewCellReuseID = @"filter-view-cell";
 static NSString *const FCPreviewViewControllerStoryBoardKey = @"preview-view-controller";
+
+#pragma mark - Filters
+
+static NSString *const FCFilterInstant = @"CIPhotoEffectInstant";
+static NSString *const FCFilterVignette = @"CIVignetteEffect";

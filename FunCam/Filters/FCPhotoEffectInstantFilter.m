@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #import "FCPhotoEffectInstantFilter.h"
+#import "FCConstants.h"
 
 @implementation FCPhotoEffectInstantFilter
 
@@ -30,7 +31,7 @@ SOFTWARE.
 
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
-    CIFilter *effectFilter = [CIFilter filterWithName:@"CIPhotoEffectInstant"];
+    CIFilter *effectFilter = [CIFilter filterWithName:FCFilterInstant];
     [effectFilter setValue:image forKey:kCIInputImageKey];
     completion([effectFilter outputImage]);
 }

@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #import "FCVignetteEffectFilter.h"
+#import "FCConstants.h"
 
 @import CoreImage;
 
@@ -32,7 +33,7 @@ SOFTWARE.
 
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
-    CIFilter *vignetteFilter = [CIFilter filterWithName:@"CIVignetteEffect"];
+    CIFilter *vignetteFilter = [CIFilter filterWithName:FCFilterVignette];
     [vignetteFilter setValue:image forKey:kCIInputImageKey];
     [vignetteFilter setValue:[CIVector vectorWithX:image.extent.size.width / 2 Y:image.extent.size.height / 2]
                       forKey:kCIInputCenterKey];
