@@ -119,6 +119,7 @@ SOFTWARE.
     [self dismissViewControllerAnimated:YES completion:nil];
     // Clear all filters from pipline
     [_imageProcessingPipeline setFilters:@[]];
+    [self.delegate previewViewControllerDidDismiss:self];
 }
 
 - (void)_processPipeline

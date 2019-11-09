@@ -34,6 +34,9 @@ SOFTWARE.
 #import "FCVignetteEffectFilter.h"
 #import "FCPhotoEffectInstantFilter.h"
 
+@interface FCCameraViewController () <FCPreviewViewControllerDelegate>
+@end
+
 @implementation FCCameraViewController {
     FCCamera *_camera;
     __weak IBOutlet UIButton *_toggleCameraBtn;
@@ -66,9 +69,10 @@ SOFTWARE.
     [self _setupFilters];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+#pragma mark - FCPreviewViewControllerDelegate
+
+- (void)previewViewControllerDidDismiss:(FCPreviewViewController *)previewViewController
 {
-    [super viewWillAppear:animated];
     [_filterCollectionViewController resume];
 }
 
@@ -148,6 +152,7 @@ SOFTWARE.
             FCPreviewViewController *previewViewController =
                 [strongSelf.storyboard instantiateViewControllerWithIdentifier:FCPreviewViewControllerStoryBoardKey];
             previewViewController.modalPresentationStyle = UIModalPresentationPopover;
+            previewViewController.delegate = strongSelf;
             [previewViewController displayImage:image
                         imageProcessingPipeline:strongSelf->_camera.imageProcessorPipeline
                                availableFilters:strongSelf->_filterCollectionViewController.availableFilters
