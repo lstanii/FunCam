@@ -23,3 +23,5 @@ SOFTWARE.
 */
 
 static NSString *const FCPreviewViewControllerStoryBoardKey = @"preview-view-controller";
+static NSString *const FCFilterCollectionViewCellReuseID = @"filter-view-cell";
+

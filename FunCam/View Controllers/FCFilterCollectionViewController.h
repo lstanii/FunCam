@@ -25,12 +25,14 @@ SOFTWARE.
 #import <UIKit/UIKit.h>
 
 @class FCImageProcessorFilter;
+@class FCImageProcessorPipeline;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FCFilterViewCell : UICollectionViewCell
+@interface FCFilterCollectionViewController : UICollectionViewController
 
-- (void)applyFilter:(FCImageProcessorFilter *)filter;
+@property (nonatomic, strong, readwrite) NSArray<FCImageProcessorFilter *> *availableFilters;
+@property (nonatomic, nonnull, readwrite) FCImageProcessorPipeline *imageProcessorPipeline;
 
 @end
 

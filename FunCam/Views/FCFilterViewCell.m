@@ -27,25 +27,24 @@ SOFTWARE.
 
 @implementation FCFilterViewCell {
     __weak IBOutlet UIImageView *_imageView;
-    BOOL _selected;
-    
 }
 
 - (void)applyFilter:(FCImageProcessorFilter *)filter
 {
-    [filter processImage:[CIImage imageWithCGImage:_imageView.image.CGImage] completion:^(CIImage *outputImage) {
-        self->_imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self->_imageView setImage:[UIImage imageWithCIImage:outputImage]];
-    }];
+    [filter processImage:[CIImage imageWithCGImage:_imageView.image.CGImage]
+              completion:^(CIImage *outputImage) {
+                  self->_imageView.contentMode = UIViewContentModeScaleAspectFit;
+                  [self->_imageView setImage:[UIImage imageWithCIImage:outputImage]];
+              }];
 }
 
-- (void)handleTap
+- (void)setSelected:(BOOL)selected
 {
-    _selected = !_selected;
-    if (_selected) {
-        
+    [super setSelected:selected];
+    if (selected) {
+        [_imageView setImage:[UIImage imageNamed:@"ghost-selected"]];
     } else {
-        
+        [_imageView setImage:[UIImage imageNamed:@"ghost"]];
     }
 }
 
