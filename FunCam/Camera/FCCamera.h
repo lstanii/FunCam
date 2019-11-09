@@ -46,15 +46,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (AVCaptureDevicePosition)currentDevicePosition;
 - (BOOL)isFlashEnabled;
 
+/**sets up the camera hardware and prepares for rendering*/
 - (void)setupCamera;
+/** starts the camera session */
 - (void)startCamera;
+/** stops the camera session, when in background, and/or to conserve battery consumption */
 - (void)stopCamera;
 - (void)toggleFlash:(dispatch_block_t)completion;
 - (void)toggleCameraPosition:(dispatch_block_t)completion;
 
 #pragma mark - Sample Buffer Observing
 
+/** adds an observer, receive sample buffers*/
 - (void)addSampleBufferObserver:(id<FCSampleBufferObserver>)observer;
+/** removes an observe, no longer receive sample buffers*/
 - (void)removeSampleBufferObserver:(id<FCSampleBufferObserver>)observer;
 
 @end
