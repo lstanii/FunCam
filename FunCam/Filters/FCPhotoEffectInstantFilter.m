@@ -26,6 +26,8 @@ SOFTWARE.
 
 @implementation FCPhotoEffectInstantFilter
 
+#pragma mark - Overrides
+
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
     CIFilter *effectFilter = [CIFilter filterWithName:@"CIPhotoEffectInstant"];

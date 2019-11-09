@@ -28,6 +28,8 @@ SOFTWARE.
 
 @implementation FCVignetteEffectFilter
 
+#pragma mark - Overrides
+
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
     CIFilter *vignetteFilter = [CIFilter filterWithName:@"CIVignetteEffect"];
