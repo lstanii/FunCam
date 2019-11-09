@@ -28,11 +28,15 @@ SOFTWARE.
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FCImageOrientationHandler : FCImageProcessorFilter
+@interface FCImageOrientationHandler : NSObject
+
+#pragma mark - Init
+
+- (instancetype)initWithAspectSize:(CGSize)aspectSize camera:(FCCamera *)camera;
 
 #pragma mark - Public Methods
 
-- (instancetype)initWithAspectSize:(CGSize)aspectSize camera:(FCCamera *)camera;
+- (void)reorientImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion;
 
 @end
 

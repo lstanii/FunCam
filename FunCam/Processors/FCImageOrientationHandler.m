@@ -44,9 +44,9 @@ SOFTWARE.
     return self;
 }
 
-#pragma mark - Overrides
+#pragma mark - Public Methods
 
-- (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
+- (void)reorientImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
     CIImage *outputImage;
     // Rotate the image

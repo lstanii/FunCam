@@ -54,10 +54,10 @@ SOFTWARE.
 {
     if (_orientationHandler) {
         [_orientationHandler
-            processImage:image
-              completion:^(CIImage *outputImage) {
-                  [self _processImage:outputImage forFilters:self->_filters atIndex:0 completion:completion];
-              }];
+            reorientImage:image
+               completion:^(CIImage *outputImage) {
+                   [self _processImage:outputImage forFilters:self->_filters atIndex:0 completion:completion];
+               }];
     } else {
         [self _processImage:image forFilters:self->_filters atIndex:0 completion:completion];
     }
