@@ -40,28 +40,27 @@
                                 </constraints>
                                 <state key="normal" image="ToggleFlash-inactive"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j2o-Xl-GOr">
-                                <rect key="frame" x="279.5" y="753.5" width="37.5" height="37.5"/>
-                                <state key="normal" image="toggleFilters"/>
-                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="toggleFilters" translatesAutoresizingMaskIntoConstraints="NO" id="iCp-ET-UkW">
+                                <rect key="frame" x="275" y="753" width="37.5" height="38"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.13889114769999999" green="0.13889114769999999" blue="0.13889114769999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="Zoj-mH-oKg" firstAttribute="leading" secondItem="CjI-8C-nL3" secondAttribute="trailing" constant="20" id="1lx-Ej-vha"/>
+                            <constraint firstItem="iCp-ET-UkW" firstAttribute="centerY" secondItem="NHB-wB-fYX" secondAttribute="centerY" id="Cr8-Z8-61x"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zoj-mH-oKg" secondAttribute="trailing" constant="30" id="Hev-cI-BFp"/>
                             <constraint firstItem="NHB-wB-fYX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="In5-9P-S7g"/>
+                            <constraint firstItem="iCp-ET-UkW" firstAttribute="leading" secondItem="NHB-wB-fYX" secondAttribute="trailing" constant="8" id="LhM-c0-bd3"/>
                             <constraint firstItem="Zoj-mH-oKg" firstAttribute="centerY" secondItem="CjI-8C-nL3" secondAttribute="centerY" id="erZ-Nj-UhI"/>
                             <constraint firstItem="Zoj-mH-oKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="hek-oR-7Xh"/>
-                            <constraint firstItem="j2o-Xl-GOr" firstAttribute="centerY" secondItem="NHB-wB-fYX" secondAttribute="centerY" id="jRj-RX-1sN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NHB-wB-fYX" secondAttribute="bottom" constant="30" id="jva-hk-ItU"/>
-                            <constraint firstItem="j2o-Xl-GOr" firstAttribute="centerX" secondItem="CjI-8C-nL3" secondAttribute="centerX" id="xA6-Jz-xAS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
     <resources>
