@@ -33,7 +33,7 @@ SOFTWARE.
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FCImageProcessorPipeline : NSObject
+@interface FCImageProcessorPipeline : NSObject <NSCopying>
 
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion;
 

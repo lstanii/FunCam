@@ -76,4 +76,15 @@ SOFTWARE.
                       }];
 }
 
+#pragma mark - NSCopying
+
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    FCImageProcessorPipeline *copy = [FCImageProcessorPipeline new];
+    [copy setOrientationHandler:_orientationHandler];
+    [copy setFilters:_filters];
+
+    return copy;
+}
+
 @end

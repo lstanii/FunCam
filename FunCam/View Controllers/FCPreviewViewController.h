@@ -30,17 +30,7 @@ SOFTWARE.
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol FCPreviewViewControllerDelegate <NSObject>
-
-- (void)previewViewControllerDidDismiss:(FCPreviewViewController *)previewViewController;
-
-@end
-
 @interface FCPreviewViewController : UIViewController
-
-#pragma mark - Public Properties
-
-@property (nonatomic, weak, nullable) id<FCPreviewViewControllerDelegate> delegate;
 
 #pragma mark - Public Methods
 
