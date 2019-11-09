@@ -143,7 +143,7 @@ SOFTWARE.
                 [strongSelf.storyboard instantiateViewControllerWithIdentifier:FCPreviewViewControllerStoryBoardKey];
             previewViewController.modalPresentationStyle = UIModalPresentationPopover;
 
-            // Copy the pipleline
+            // Copy the pipleline so changes do not affect the current pipline
             FCImageProcessorPipeline *copiedPipeline = strongSelf->_camera.imageProcessorPipeline.copy;
 
             [previewViewController displayImage:image
