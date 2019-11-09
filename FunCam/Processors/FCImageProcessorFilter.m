@@ -28,6 +28,8 @@ SOFTWARE.
 
 @implementation FCImageProcessorFilter
 
+#pragma mark - Public Methods
+
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {
     NSAssert(NO, @"Should be implemented by subclass");

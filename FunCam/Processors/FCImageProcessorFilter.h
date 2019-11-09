@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FCImageProcessorFilter : NSObject
 
+#pragma mark - Public Methods
+
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion;
 
 @end

@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FCLiveDisplayView : UIView <FCSampleBufferObserver>
 
+#pragma mark - Public Properties
+
 @property (nonatomic, weak) FCCamera *camera;
 
 @end

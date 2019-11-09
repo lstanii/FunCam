@@ -35,13 +35,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FCImageProcessorPipeline : NSObject <NSCopying>
 
+#pragma mark - Public Methods
+
+- (NSArray<FCImageProcessorFilter *> *)filters;
+
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion;
 
 - (void)setOrientationHandler:(FCImageOrientationHandler *)orientationHandler;
 
 - (void)setFilters:(NSArray<FCImageProcessorFilter *> *)filters;
-
-- (NSArray<FCImageProcessorFilter *> *)filters;
 
 @end
 

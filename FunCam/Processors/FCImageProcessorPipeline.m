@@ -29,8 +29,15 @@ SOFTWARE.
 @import CoreImage;
 
 @implementation FCImageProcessorPipeline {
-    FCImageOrientationHandler *_orientationHandler;
     NSArray<FCImageProcessorFilter *> *_filters;
+    FCImageOrientationHandler *_orientationHandler;
+}
+
+#pragma mark - Public Methods
+
+- (NSArray<FCImageProcessorFilter *> *)filters
+{
+    return _filters;
 }
 
 - (void)setOrientationHandler:(FCImageOrientationHandler *)orientationHandler
@@ -41,11 +48,6 @@ SOFTWARE.
 - (void)setFilters:(NSArray<FCImageProcessorFilter *> *)filters
 {
     _filters = filters;
-}
-
-- (NSArray<FCImageProcessorFilter *> *)filters
-{
-    return _filters;
 }
 
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
@@ -60,6 +62,8 @@ SOFTWARE.
         [self _processImage:image forFilters:self->_filters atIndex:0 completion:completion];
     }
 }
+
+#pragma mark - Private Methods
 
 - (void)_processImage:(CIImage *)image
            forFilters:(NSArray<FCImageProcessorFilter *> *)filters

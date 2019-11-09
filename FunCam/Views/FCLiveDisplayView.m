@@ -30,12 +30,14 @@ SOFTWARE.
 @import GLKit;
 
 @implementation FCLiveDisplayView {
-    GLKView *_videoPreviewView;
     CIContext *_ciContext;
-    EAGLContext *_eaglContext;
-    CGRect _videoPreviewViewBounds;
     AVCaptureDevicePosition _currentPosition;
+    EAGLContext *_eaglContext;
+    GLKView *_videoPreviewView;
+    CGRect _videoPreviewViewBounds;
 }
+
+#pragma mark - Init
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
@@ -64,6 +66,14 @@ SOFTWARE.
     return self;
 }
 
+#pragma mark - Private Methods
+
+- (void)_didEnterBackground
+{
+    [_videoPreviewView deleteDrawable];
+    [_videoPreviewView setHidden:YES];
+}
+
 - (void)_setup
 {
     _currentPosition = AVCaptureDevicePositionUnspecified;
@@ -82,11 +92,7 @@ SOFTWARE.
                                                object:nil];
 }
 
-- (void)_didEnterBackground
-{
-    [_videoPreviewView deleteDrawable];
-    [_videoPreviewView setHidden:YES];
-}
+#pragma mark - Overrides
 
 - (void)layoutSubviews
 {
@@ -99,6 +105,8 @@ SOFTWARE.
 
     [super layoutSubviews];
 }
+
+#pragma mark - FCSampleBufferObserver
 
 - (void)enqueueSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {

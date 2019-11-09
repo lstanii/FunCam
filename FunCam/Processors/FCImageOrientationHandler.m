@@ -32,6 +32,8 @@ SOFTWARE.
     FCCamera *_camera;
 }
 
+#pragma mark - Init
+
 - (instancetype)initWithAspectSize:(CGSize)aspectSize camera:(FCCamera *)camera
 {
     self = [super init];
@@ -41,6 +43,8 @@ SOFTWARE.
     }
     return self;
 }
+
+#pragma mark - Overrides
 
 - (void)processImage:(CIImage *)image completion:(void (^)(CIImage *outputImage))completion
 {

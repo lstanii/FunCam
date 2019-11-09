@@ -22,7 +22,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#import <Foundation/Foundation.h>
-
 static NSString *const FCNotificationDevicePositionDidChange = @"com.fun.camera.device.position.did.change";
 static NSString *const FCNotificationFlashEnabledDidChange = @"com.fun.camera.flash.enabled.did.change";

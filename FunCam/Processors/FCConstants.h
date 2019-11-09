@@ -22,6 +22,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-static NSString *const FCPreviewViewControllerStoryBoardKey = @"preview-view-controller";
 static NSString *const FCFilterCollectionViewCellReuseID = @"filter-view-cell";
-
+static NSString *const FCPreviewViewControllerStoryBoardKey = @"preview-view-controller";

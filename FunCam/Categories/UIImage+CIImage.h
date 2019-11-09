@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (CIImage)
 
+#pragma mark - Public Methods
+
 + (UIImage *)getImageFromCIImage:(CIImage *)image;
 
 @end

@@ -35,14 +35,16 @@ SOFTWARE.
 @end
 
 @implementation FCCamera {
-    FCCameraSession *_cameraSession;
-    FCLiveDisplayView *_liveDisplayView;
-    NSMutableSet<id<FCSampleBufferObserver>> *_sampleBufferObservers;
-    NSLock *_observerLock;
     dispatch_queue_t _backgroundQueue;
-    BOOL _isStoppedInBackground;
+    FCCameraSession *_cameraSession;
     BOOL _isStarted;
+    BOOL _isStoppedInBackground;
+    FCLiveDisplayView *_liveDisplayView;
+    NSLock *_observerLock;
+    NSMutableSet<id<FCSampleBufferObserver>> *_sampleBufferObservers;
 }
+
+#pragma mark - Init
 
 - (instancetype)init
 {

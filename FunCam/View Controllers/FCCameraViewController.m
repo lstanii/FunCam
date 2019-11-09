@@ -35,12 +35,15 @@ SOFTWARE.
 #import "FCPhotoEffectInstantFilter.h"
 
 @implementation FCCameraViewController {
-    FCCamera *_camera;
     __weak IBOutlet UIButton *_toggleCameraBtn;
     __weak IBOutlet UIButton *_toggleFlashBtn;
     __weak IBOutlet UIView *_filterCollectionViewContainer;
+    
+    FCCamera *_camera;
     FCFilterCollectionViewController *_filterCollectionViewController;
 }
+
+#pragma mark - Overrides
 
 - (void)viewDidLoad
 {
@@ -66,39 +69,14 @@ SOFTWARE.
     [self _setupFilters];
 }
 
-- (void)_setupFilters
-{
-    NSMutableArray<FCImageProcessorFilter *> *array = [NSMutableArray new];
-    // TODO: implement your filters
-    [array addObject:[[FCVignetteEffectFilter alloc] init]];
-    [array addObject:[[FCPhotoEffectInstantFilter alloc] init]];
-
-    NSArray<FCImageProcessorFilter *> *availableFilters = [array copy];
-    [_camera.imageProcessorPipeline setFilters:@[]];
-
-    // Set up collection view controller
-
-    UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
-    flowLayout.minimumInteritemSpacing = 0;
-    FCFilterCollectionViewController *viewController =
-        [[FCFilterCollectionViewController alloc] initWithCollectionViewLayout:flowLayout];
-    viewController.availableFilters = availableFilters;
-    viewController.imageProcessorPipeline = _camera.imageProcessorPipeline;
-    _filterCollectionViewController = viewController;
-
-    // Attach collection view controller
-
-    [self addChildViewController:viewController];
-    viewController.view.frame = _filterCollectionViewContainer.bounds;
-    [_filterCollectionViewContainer addSubview:viewController.view];
-    _filterCollectionViewContainer.backgroundColor = [UIColor clearColor];
-    [viewController didMoveToParentViewController:self];
-}
+#pragma mark - Public Methods
 
 - (void)setCameraAPI:(FCCamera *)camera
 {
     _camera = camera;
 }
+
+#pragma mark - Actions
 
 - (IBAction)toggleFilters:(UIButton *)sender
 {
@@ -156,6 +134,8 @@ SOFTWARE.
     }];
 }
 
+#pragma mark - Private Methods
+
 - (void)_animateToggle:(UIView *)view
 {
     CGAffineTransform currentTransform = view.transform;
@@ -176,6 +156,35 @@ SOFTWARE.
                     }];
             }
         }];
+}
+
+- (void)_setupFilters
+{
+    NSMutableArray<FCImageProcessorFilter *> *array = [NSMutableArray new];
+    // TODO: implement your filters
+    [array addObject:[[FCVignetteEffectFilter alloc] init]];
+    [array addObject:[[FCPhotoEffectInstantFilter alloc] init]];
+
+    NSArray<FCImageProcessorFilter *> *availableFilters = [array copy];
+    [_camera.imageProcessorPipeline setFilters:@[]];
+
+    // Set up collection view controller
+
+    UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
+    flowLayout.minimumInteritemSpacing = 0;
+    FCFilterCollectionViewController *viewController =
+        [[FCFilterCollectionViewController alloc] initWithCollectionViewLayout:flowLayout];
+    viewController.availableFilters = availableFilters;
+    viewController.imageProcessorPipeline = _camera.imageProcessorPipeline;
+    _filterCollectionViewController = viewController;
+
+    // Attach collection view controller
+
+    [self addChildViewController:viewController];
+    viewController.view.frame = _filterCollectionViewContainer.bounds;
+    [_filterCollectionViewContainer addSubview:viewController.view];
+    _filterCollectionViewContainer.backgroundColor = [UIColor clearColor];
+    [viewController didMoveToParentViewController:self];
 }
 
 - (void)_toggleCamera

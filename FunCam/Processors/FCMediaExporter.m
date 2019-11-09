@@ -29,6 +29,8 @@ SOFTWARE.
     dispatch_queue_t _queue;
 }
 
+#pragma mark - Init
+
 - (instancetype)init
 {
     self = [super init];
@@ -46,11 +48,13 @@ SOFTWARE.
 {
     dispatch_async(_queue, ^{
         self->_completion = completion;
-        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(_image:didFinishSavingWithError:contextInfo:), nil);
     });
 }
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+#pragma mark - Private Methods
+
+- (void)_image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
     if (_completion) {
         _completion();

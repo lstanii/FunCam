@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FCMediaExporter : NSObject
 
+#pragma mark - Public Methods
+
 - (void)saveImageToCameraRoll:(UIImage *)image completion:(nullable dispatch_block_t)completion;
 
 @end

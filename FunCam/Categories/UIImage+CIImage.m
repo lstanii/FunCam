@@ -26,6 +26,8 @@ SOFTWARE.
 
 @implementation UIImage (CIImage)
 
+#pragma mark - Public Methods
+
 + (UIImage *)getImageFromCIImage:(CIImage *)image
 {
     CIContext *context = [CIContext context];

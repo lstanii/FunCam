@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isFlashEnabled) BOOL flashEnabled;
 @property (nonatomic, readonly) BOOL isFlashSupported;
 
+#pragma mark - Public Methods
+
 - (void)captureImage:(void (^)(CIImage *_Nullable image))completion;
 - (void)configure;
 - (AVCaptureDevicePosition)currentDevicePosition;

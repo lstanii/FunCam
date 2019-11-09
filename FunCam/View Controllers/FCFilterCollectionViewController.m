@@ -36,6 +36,8 @@ SOFTWARE.
     NSMutableSet<FCImageProcessorFilter *> *_activeFilters;
 }
 
+#pragma mark - Overrides
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,15 +52,7 @@ SOFTWARE.
     _activeFilters = _activeFilters ?: [NSMutableSet new];
 }
 
-- (void)_toggleFilter:(FCImageProcessorFilter *)filter
-{
-    if ([_activeFilters containsObject:filter]) {
-        [_activeFilters removeObject:filter];
-    } else {
-        [_activeFilters addObject:filter];
-    }
-    [self resume];
-}
+#pragma mark - Public Methods
 
 - (NSArray<FCImageProcessorFilter *> *)activeFilters
 {
@@ -76,7 +70,19 @@ SOFTWARE.
     [self.imageProcessorPipeline setFilters:_activeFilters.allObjects];
 }
 
-// UICollectionViewDataSource
+#pragma mark - Private Methods
+
+- (void)_toggleFilter:(FCImageProcessorFilter *)filter
+{
+    if ([_activeFilters containsObject:filter]) {
+        [_activeFilters removeObject:filter];
+    } else {
+        [_activeFilters addObject:filter];
+    }
+    [self resume];
+}
+
+#pragma mark - UICollectionViewDataSource
 
 - (nonnull FCFilterViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                       cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -94,7 +100,7 @@ SOFTWARE.
     return _availableFilters.count;
 }
 
-// UICollectionViewDelegate
+#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -103,7 +109,7 @@ SOFTWARE.
     [self.filterCollectionViewControllerDelegate filterCollectionViewControllerDidUpdate:self];
 }
 
-// UICollectionViewDelegateFlowLayout
+#pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout

@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FCFilterViewCell : UICollectionViewCell
 
+#pragma mark - Public Methods
+
 - (void)applyFilter:(FCImageProcessorFilter *)filter;
 
 @end

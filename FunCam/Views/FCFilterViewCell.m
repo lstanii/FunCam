@@ -29,6 +29,8 @@ SOFTWARE.
     __weak IBOutlet UIImageView *_imageView;
 }
 
+#pragma mark - Public Methods
+
 - (void)applyFilter:(FCImageProcessorFilter *)filter
 {
     [filter processImage:[CIImage imageWithCGImage:_imageView.image.CGImage]
@@ -37,6 +39,8 @@ SOFTWARE.
                   [self->_imageView setImage:[UIImage imageWithCIImage:outputImage]];
               }];
 }
+
+#pragma mark - Overrides
 
 - (void)setSelected:(BOOL)selected
 {

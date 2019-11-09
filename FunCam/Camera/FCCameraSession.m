@@ -36,12 +36,14 @@ SOFTWARE.
     AVCaptureSession *_captureSession;
     NSLock *_captureSessionLock;
     AVCaptureDevicePosition _devicePosition;
-    AVCapturePhotoOutput *_photoOutput;
-    AVCaptureVideoDataOutput *_videoDataOutput;
-    dispatch_queue_t _serialSampleBufferQueue;
-    BOOL _isFlashEnabled;
     void (^_imageCaptureCompletion)(CIImage *image);
+    BOOL _isFlashEnabled;
+    AVCapturePhotoOutput *_photoOutput;
+    dispatch_queue_t _serialSampleBufferQueue;
+    AVCaptureVideoDataOutput *_videoDataOutput;
 }
+
+#pragma mark - Init
 
 - (instancetype)init
 {
@@ -55,6 +57,8 @@ SOFTWARE.
     }
     return self;
 }
+
+#pragma mark - Public Methods
 
 - (void)captureImage:(void (^)(CIImage *image))completion
 {
@@ -71,16 +75,23 @@ SOFTWARE.
     [_photoOutput capturePhotoWithSettings:photoSettings delegate:self];
 }
 
-- (void)setFlashEnabled:(BOOL)enabled
+- (void)configure
 {
     [_captureSessionLock lock];
-    if (enabled == _isFlashEnabled) {
-        [_captureSessionLock unlock];
-        return;
-    }
-    _isFlashEnabled = enabled;
+    [self _configureSession:^{
+        [self _configurePhotoOutput];
+        [self _configureVideoOutput];
+        [self _setDevicePosition:AVCaptureDevicePositionBack];
+    }];
     [_captureSessionLock unlock];
-    [[NSNotificationCenter defaultCenter] postNotificationName:FCNotificationFlashEnabledDidChange object:nil];
+}
+
+- (AVCaptureDevicePosition)currentDevicePosition
+{
+    [_captureSessionLock lock];
+    AVCaptureDevicePosition position = _devicePosition;
+    [_captureSessionLock unlock];
+    return position;
 }
 
 - (BOOL)isFlashEnabled
@@ -98,32 +109,25 @@ SOFTWARE.
         [_captureSessionLock unlock];
         return;
     }
-
+    
     [self _configureSession:^{
         [self _setDevicePosition:devicePosition];
     }];
-
+    
     [_captureSessionLock unlock];
     [[NSNotificationCenter defaultCenter] postNotificationName:FCNotificationDevicePositionDidChange object:nil];
 }
 
-- (AVCaptureDevicePosition)currentDevicePosition
+- (void)setFlashEnabled:(BOOL)enabled
 {
     [_captureSessionLock lock];
-    AVCaptureDevicePosition position = _devicePosition;
+    if (enabled == _isFlashEnabled) {
+        [_captureSessionLock unlock];
+        return;
+    }
+    _isFlashEnabled = enabled;
     [_captureSessionLock unlock];
-    return position;
-}
-
-- (void)configure
-{
-    [_captureSessionLock lock];
-    [self _configureSession:^{
-        [self _configurePhotoOutput];
-        [self _configureVideoOutput];
-        [self _setDevicePosition:AVCaptureDevicePositionBack];
-    }];
-    [_captureSessionLock unlock];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FCNotificationFlashEnabledDidChange object:nil];
 }
 
 - (void)setSampleBufferDelegate:(id<AVCaptureVideoDataOutputSampleBufferDelegate>)delegate
@@ -145,6 +149,8 @@ SOFTWARE.
     [_captureSession stopRunning];
     [_captureSessionLock unlock];
 }
+
+#pragma mark - AVCapturePhotoCaptureDelegate
 
 - (void)captureOutput:(AVCapturePhotoOutput *)output
     didFinishProcessingPhoto:(nonnull AVCapturePhoto *)photo
@@ -174,12 +180,7 @@ SOFTWARE.
     }
 }
 
-- (void)_configureSession:(dispatch_block_t)context
-{
-    [_captureSession beginConfiguration];
-    context();
-    [_captureSession commitConfiguration];
-}
+#pragma mark - Private Methods
 
 - (void)_configurePhotoOutput
 {
@@ -188,6 +189,13 @@ SOFTWARE.
     NSAssert([_captureSession canAddOutput:_photoOutput], @"Cannot add input");
     [_captureSession setSessionPreset:AVCaptureSessionPresetPhoto];
     [_captureSession addOutput:_photoOutput];
+}
+
+- (void)_configureSession:(dispatch_block_t)context
+{
+    [_captureSession beginConfiguration];
+    context();
+    [_captureSession commitConfiguration];
 }
 
 - (void)_configureVideoOutput

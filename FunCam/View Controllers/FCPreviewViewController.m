@@ -33,11 +33,12 @@ SOFTWARE.
 
 @implementation FCPreviewViewController {
     __weak IBOutlet UIView *_filterCollectionViewContainer;
+    __weak IBOutlet UIImageView *_imageView;
+    
     CIImage *_image;
-    UIImage *_uiImage;
     FCImageProcessorPipeline *_imageProcessingPipeline;
     FCMediaExporter *_mediaExporter;
-    __weak IBOutlet UIImageView *_imageView;
+    UIImage *_uiImage;
 }
 
 #pragma mark - Overrides
