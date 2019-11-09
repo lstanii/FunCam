@@ -24,19 +24,29 @@ SOFTWARE.
 
 #import "FCFilterViewCell.h"
 #import "FCImageProcessorFilter.h"
+#import "UIImage+CIImage.h"
 
 @implementation FCFilterViewCell {
+    CIImage *_ciImage;
     __weak IBOutlet UIImageView *_imageView;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.layer.borderWidth = 5;
+    _ciImage = [CIImage imageWithCGImage:[UIImage imageNamed:@"venice-beach"].CGImage];
+    self.layer.borderColor = [UIColor clearColor].CGColor;
 }
 
 #pragma mark - Public Methods
 
 - (void)applyFilter:(FCImageProcessorFilter *)filter
 {
-    [filter processImage:[CIImage imageWithCGImage:_imageView.image.CGImage]
+    [filter processImage:_ciImage
               completion:^(CIImage *outputImage) {
                   self->_imageView.contentMode = UIViewContentModeScaleAspectFit;
-                  [self->_imageView setImage:[UIImage imageWithCIImage:outputImage]];
+                  [self->_imageView setImage:[UIImage getImageFromCIImage:outputImage]];
               }];
 }
 
@@ -45,11 +55,7 @@ SOFTWARE.
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-    if (selected) {
-        [_imageView setImage:[UIImage imageNamed:@"ghost-selected"]];
-    } else {
-        [_imageView setImage:[UIImage imageNamed:@"ghost"]];
-    }
+    self.layer.borderColor = selected ? [UIColor whiteColor].CGColor : [UIColor clearColor].CGColor;
 }
 
 @end
