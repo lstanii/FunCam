@@ -23,12 +23,22 @@ SOFTWARE.
 */
 
 #import "AppDelegate.h"
+#import "FCCameraViewController.h"
+#import "FCCamera.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    FCCameraViewController *cameraViewController = (FCCameraViewController *)[
+        [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+    FCCamera *camera = [FCCamera new];
+    // Inject camera api into cameraViewController
+    [cameraViewController setCameraAPI:camera];
+
+    self.window.rootViewController = cameraViewController;
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 

@@ -38,18 +38,18 @@ SOFTWARE.
     __weak IBOutlet UIButton *_toggleCameraBtn;
     __weak IBOutlet UIButton *_toggleFlashBtn;
     __weak IBOutlet UIView *_filterCollectionViewContainer;
-    
+
     FCCamera *_camera;
     FCFilterCollectionViewController *_filterCollectionViewController;
 }
 
-#pragma mark - Overrides
+#pragma mark - Public Methods
 
-- (void)viewDidLoad
+- (void)setCameraAPI:(FCCamera *)camera
 {
-    [super viewDidLoad];
-    FCCamera *camera = [FCCamera new];
-    [self setCameraAPI:camera];
+    _camera = camera;
+    // load view
+    [self view];
     UIView *preview = camera.liveDisplay;
     [self.view insertSubview:preview atIndex:0];
     preview.frame = self.view.bounds;
@@ -67,13 +67,6 @@ SOFTWARE.
     [self.view addGestureRecognizer:doubleTapGestureRecognizer];
     [_filterCollectionViewContainer setHidden:YES];
     [self _setupFilters];
-}
-
-#pragma mark - Public Methods
-
-- (void)setCameraAPI:(FCCamera *)camera
-{
-    _camera = camera;
 }
 
 #pragma mark - Actions
