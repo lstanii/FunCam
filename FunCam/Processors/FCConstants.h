@@ -32,6 +32,5 @@ static NSString *const FCPreviewViewControllerStoryBoardKey = @"preview-view-con
 static NSString *const FCFilterInstant = @"CIPhotoEffectInstant";
 static NSString *const FCFilterVignette = @"CIVignetteEffect";
 
-
 static NSString *const FCFilterMono = @"CIPhotoEffectMono";
 static NSString *const FCFilterSepia = @"CISepiaTone";
